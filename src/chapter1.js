@@ -2,18 +2,25 @@ export function sumTwoLargestSquares(a, b, c) {
   return twoLargest(a, b, c).map(square).reduce(add);
 }
 
-export function sqrt(x, guess = 1, prev = 0) {
-  if (goodEnough(guess, prev)) {
-    return guess;
-  }
-  return sqrt(x, improveGuess(x, guess), guess);
+export function sqrt(x) {
+  return newtonsMethod(function (x, guess) {
+    return average(guess, x / guess);
+  })(x);
 }
 
-export function cubeRoot(x, guess = 1, prev = 0) {
-  if (goodEnough(guess, prev)) {
-    return guess;
+export function cubeRoot(x) {
+  return newtonsMethod(function (x, guess) {
+    return (x / square(guess) + 2 * guess) / 3;
+  })(x);
+}
+
+function newtonsMethod(improve) {
+  return function iter(x, guess = 1, prev = 0) {
+    if (goodEnough(guess, prev)) {
+      return guess;
+    }
+    return iter(x, improve(x, guess), guess);
   }
-  return cubeRoot(x, improveGuess2(x, guess), guess);
 }
 
 function square(a) {
@@ -38,14 +45,6 @@ function twoLargest(a, b, c) {
 
 function goodEnough(guess, prev) {
   return Math.abs(guess - prev) < guess / 1000;
-}
-
-function improveGuess(x, guess) {
-  return average(guess, x / guess);
-}
-
-function improveGuess2(x, guess) {
-  return (x / square(guess) + 2 * guess) / 3;
 }
 
 function average(a, b) {
