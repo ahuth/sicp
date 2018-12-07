@@ -9,6 +9,13 @@ export function sqrt(x, guess = 1, prev = 0) {
   return sqrt(x, improveGuess(x, guess), guess);
 }
 
+export function cubeRoot(x, guess = 1, prev = 0) {
+  if (goodEnough(guess, prev)) {
+    return guess;
+  }
+  return cubeRoot(x, improveGuess2(x, guess), guess);
+}
+
 function square(a) {
   return a * a;
 }
@@ -35,6 +42,10 @@ function goodEnough(guess, prev) {
 
 function improveGuess(x, guess) {
   return average(guess, x / guess);
+}
+
+function improveGuess2(x, guess) {
+  return (x / square(guess) + 2 * guess) / 3;
 }
 
 function average(a, b) {
