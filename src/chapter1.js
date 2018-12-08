@@ -3,9 +3,9 @@ export function sumTwoLargestSquares(a, b, c) {
 }
 
 export function sqrt(x) {
-  return fixedPoint(function (y) {
-    return average(y, x / y);
-  }, 1);
+  return fixedPoint(averageDamp(function (y) {
+    return x / y;
+  }), 1);
 }
 
 export function cubeRoot(x) {
@@ -23,6 +23,12 @@ function fixedPoint(f, start) {
   }
 
   return iter(f(start), start);
+}
+
+function averageDamp(f) {
+  return function (x) {
+    return average(f(x), x);
+  };
 }
 
 function square(a) {
