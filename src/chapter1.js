@@ -3,26 +3,26 @@ export function sumTwoLargestSquares(a, b, c) {
 }
 
 export function sqrt(x) {
-  return newtonsMethod(x, function (x, guess) {
-    return average(guess, x / guess);
-  });
+  return fixedPoint(function (y) {
+    return average(y, x / y);
+  }, 1);
 }
 
 export function cubeRoot(x) {
-  return newtonsMethod(x, function (x, guess) {
-    return (x / square(guess) + 2 * guess) / 3;
-  });
+  return fixedPoint(function (y) {
+    return (x / square(y) + 2 * y) / 3;
+  }, 1);
 }
 
-function newtonsMethod(x, improve) {
-  function iter(guess, prev) {
-    if (goodEnough(guess, prev)) {
-      return guess;
+function fixedPoint(f, start) {
+  function iter(current, prev) {
+    if (goodEnough(current, prev)) {
+      return current;
     }
-    return iter(improve(x, guess), guess);
+    return iter(f(current), current);
   }
 
-  return iter(1, 0);
+  return iter(f(start), start);
 }
 
 function square(a) {
