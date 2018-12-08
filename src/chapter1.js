@@ -20,7 +20,7 @@ function newtonsMethod(improve) {
       return guess;
     }
     return iter(x, improve(x, guess), guess);
-  }
+  };
 }
 
 function square(a) {
