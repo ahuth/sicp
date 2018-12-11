@@ -3,15 +3,23 @@ export function sumTwoLargestSquares(a, b, c) {
 }
 
 export function sqrt(x) {
-  return fixedPoint(averageDamp(function (y) {
-    return x / y;
-  }), 1);
+  return newtonsMethod(y => x - square(y), 1);
 }
 
 export function cubeRoot(x) {
   return fixedPoint(function (y) {
     return (x / square(y) + 2 * y) / 3;
   }, 1);
+}
+
+function newtonsMethod(f, guess) {
+  const dF = derive(f);
+  return fixedPoint(x => x - (f(x) / dF(x)), guess);
+}
+
+function derive(f) {
+  const dX = 0.000001;
+  return x => (f(x + dX) - f(x)) / dX;
 }
 
 function fixedPoint(f, start) {
@@ -23,12 +31,6 @@ function fixedPoint(f, start) {
   }
 
   return iter(f(start), start);
-}
-
-function averageDamp(f) {
-  return function (x) {
-    return average(f(x), x);
-  };
 }
 
 function square(a) {
@@ -53,8 +55,4 @@ function twoLargest(a, b, c) {
 
 function goodEnough(guess, prev) {
   return Math.abs(guess - prev) < guess / 1000;
-}
-
-function average(a, b) {
-  return (a + b) / 2;
 }
