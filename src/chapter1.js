@@ -12,6 +12,40 @@ export function cubeRoot(x) {
   }, 1);
 }
 
+export function countChange(amount) {
+  return countFifties(amount, 0);
+}
+
+function countFifties(amount, acc) {
+  if (amount === 0) { return acc + 1; }
+  if (amount < 0) { return acc; }
+  return countFifties(amount - 50, countQuarters(amount, acc));
+}
+
+function countQuarters(amount, acc) {
+  if (amount === 0) { return acc + 1; }
+  if (amount < 0) { return acc; }
+  return countQuarters(amount - 25, countDimes(amount, acc));
+}
+
+function countDimes(amount, acc) {
+  if (amount === 0) { return acc + 1; }
+  if (amount < 0) { return acc; }
+  return countDimes(amount - 10, countNickels(amount, acc));
+}
+
+function countNickels(amount, acc) {
+  if (amount === 0) { return acc + 1; }
+  if (amount < 0) { return acc; }
+  return countNickels(amount - 5, countPennies(amount, acc));
+}
+
+function countPennies(amount, acc) {
+  if (amount === 0) { return acc + 1; }
+  if (amount < 0) { return acc; }
+  return countPennies(amount - 1, acc);
+}
+
 function newtonsMethod(f, guess) {
   const dF = derive(f);
   return fixedPoint(x => x - (f(x) / dF(x)), guess);
