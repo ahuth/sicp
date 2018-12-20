@@ -17,8 +17,12 @@ export function countChange(amount) {
 }
 
 export function exp(base, to) {
-  if (to === 0) { return 1; }
-  return base * exp(base, to - 1);
+  function iter(to, product) {
+    if (to === 0) { return product; }
+    return iter(to - 1, base * product);
+  }
+
+  return iter(to, 1);
 }
 
 function countFifties(amount, acc) {
