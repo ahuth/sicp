@@ -40,10 +40,8 @@ function countNickels(amount, acc) {
   return countNickels(amount - 5, countPennies(amount, acc));
 }
 
-function countPennies(amount, acc) {
-  if (amount === 0) { return acc + 1; }
-  if (amount < 0) { return acc; }
-  return countPennies(amount - 1, acc);
+function countPennies(_amount, acc) {
+  return acc + 1;
 }
 
 function newtonsMethod(f, guess) {
