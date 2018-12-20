@@ -16,13 +16,20 @@ export function countChange(amount) {
   return countFifties(amount, 0);
 }
 
-export function exp(base, to) {
-  function iter(to, product) {
-    if (to === 0) { return product; }
-    return iter(to - 1, base * product);
+export function exp(base, n) {
+  if (n === 0) {
+    return 1;
   }
 
-  return iter(to, 1);
+  if (isEven(n)) {
+    return square(exp(base, n / 2));
+  }
+
+  return base * exp(base, n - 1);
+}
+
+function isEven(n) {
+  return n % 2 === 0;
 }
 
 function countFifties(amount, acc) {

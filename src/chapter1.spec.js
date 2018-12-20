@@ -18,4 +18,5 @@ test('exercise 1.9', () => {
 
 test('exercise 1.11', () => {
   expect(exp(2, 13)).toEqual(8192);
+  expect(exp(2, 14)).toEqual(16384);
 });
