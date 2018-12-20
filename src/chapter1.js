@@ -16,6 +16,11 @@ export function countChange(amount) {
   return countFifties(amount, 0);
 }
 
+export function exp(base, to) {
+  if (to === 0) { return 1; }
+  return base * exp(base, to - 1);
+}
+
 function countFifties(amount, acc) {
   if (amount === 0) { return acc + 1; }
   if (amount < 0) { return acc; }

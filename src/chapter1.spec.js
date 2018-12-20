@@ -1,4 +1,4 @@
-import { countChange, cubeRoot, sumTwoLargestSquares, sqrt } from './chapter1';
+import { countChange, cubeRoot, exp, sumTwoLargestSquares, sqrt } from './chapter1';
 
 test('exercise 1.2', () => {
   expect(sumTwoLargestSquares(1, 2, 3)).toEqual(13);
@@ -14,4 +14,8 @@ test('exercise 1.6', () => {
 
 test('exercise 1.9', () => {
   expect(countChange(100)).toEqual(292);
+});
+
+test('exercise 1.11', () => {
+  expect(exp(2, 13)).toEqual(8192);
 });
