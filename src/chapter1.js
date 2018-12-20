@@ -17,15 +17,13 @@ export function countChange(amount) {
 }
 
 export function exp(base, n) {
-  if (n === 0) {
-    return 1;
+  function iter(base, n, acc) {
+    if (n === 0) { return acc; }
+    if (isEven(n)) { return iter(square(base), n / 2, acc); }
+    return iter(base, n - 1, base * acc);
   }
 
-  if (isEven(n)) {
-    return square(exp(base, n / 2));
-  }
-
-  return base * exp(base, n - 1);
+  return iter(base, n, 1);
 }
 
 function isEven(n) {
