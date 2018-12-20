@@ -78,3 +78,7 @@ which turns into:
 which we know is 256!
 
 Meanwhile, the "odd" case is easily turned in to a standard iterative process with an accumulator. Combine the two and we have a recursive exponentiation function using only tali calls / iterative processes.
+
+Actually, now that I think about it, this is probably **_exactly_** the solution the authors had in mind. They specifically mention that we need to keep a state variable (they call it `a`), and that `ab^n` (where `b` is the base) should stay constant throughout the iteration.
+
+For out "even" case, the accumulator (or `a` here) doesn't actually, change. And in the solution outlined here, `b` is getting squared whiled `n` is being halved... meaning that `b^n` will always be equal to the same thing. Since `a` is a constant (for our "even" case. It does decrease for "odd"), then the constraint the authors mentioned holds true.
