@@ -47,9 +47,7 @@ Even though the function is now more generic, it works just as well as it did be
 
 I couldn't implement the "fast" exponentation function with an iterative process in the manner I think the authors intended. However, their clue about the following lead me to a good answer:
 
-```
-(b^(n/2))^2 == (b^2)^(n/2)
-```
+(b<sup>n/2</sup>)<sup>2</sup> = (b<sup>2</sup>)<sup>n/2</sup>
 
 This lead me to change:
 
