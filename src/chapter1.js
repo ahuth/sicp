@@ -26,6 +26,13 @@ export function exp(base, n) {
   return iter(base, n, 1);
 }
 
+export function gcd(a, b) {
+  if (b === 0) {
+    return a;
+  }
+  return gcd(b, a % b);
+}
+
 function isEven(n) {
   return n % 2 === 0;
 }
