@@ -1,4 +1,12 @@
-import { countChange, cubeRoot, exp, gcd, sumTwoLargestSquares, sqrt } from './chapter1';
+import {
+  countChange,
+  cubeRoot,
+  exp,
+  gcd,
+  smallestDivisor,
+  sumTwoLargestSquares,
+  sqrt
+} from './chapter1';
 
 test('exercise 1.2', () => {
   expect(sumTwoLargestSquares(1, 2, 3)).toEqual(13);
@@ -28,3 +36,9 @@ test('greatest common denominator', () => {
   expect(gcd(1000, 100)).toEqual(100);
   expect(gcd(240,40)).toEqual(40);
 });
+
+test('exercise 1.16', () => {
+  expect(smallestDivisor(199)).toEqual(199);
+  expect(smallestDivisor(1999)).toEqual(1999);
+  expect(smallestDivisor(19999)).toEqual(7);
+})

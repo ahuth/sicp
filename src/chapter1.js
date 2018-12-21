@@ -33,6 +33,20 @@ export function gcd(a, b) {
   return gcd(b, a % b);
 }
 
+export function smallestDivisor(n) {
+  function findDivisor(n, testDivisor) {
+    if (square(testDivisor) > n) { return n; }
+    if (divides(testDivisor, n)) { return testDivisor; }
+    return findDivisor(n, testDivisor + 1);
+  }
+
+  return findDivisor(n, 2);
+}
+
+function divides(a, b) {
+  return b % a === 0;
+}
+
 function isEven(n) {
   return n % 2 === 0;
 }
