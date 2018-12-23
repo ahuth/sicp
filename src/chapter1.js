@@ -44,12 +44,16 @@ export function smallestDivisor(n) {
 }
 
 export function product(term, a, next, b) {
+  return accumulate((a, b) => a * b, 1, term, a, next, b);
+}
+
+function accumulate(combine, initial, term, a, next, b) {
   function iter(a, result) {
     if (a > b) { return result; }
-    return iter(next(a), result * term(a));
+    return iter(next(a), combine(result, a));
   }
 
-  return iter(a, 1);
+  return iter(a, initial);
 }
 
 function divides(a, b) {
