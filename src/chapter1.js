@@ -43,6 +43,15 @@ export function smallestDivisor(n) {
   return findDivisor(n, 2);
 }
 
+export function product(term, a, next, b) {
+  function iter(a, result) {
+    if (a > b) { return result; }
+    return iter(next(a), result * term(a));
+  }
+
+  return iter(a, 1);
+}
+
 function divides(a, b) {
   return b % a === 0;
 }

@@ -3,6 +3,7 @@ import {
   cubeRoot,
   exp,
   gcd,
+  product,
   smallestDivisor,
   sumTwoLargestSquares,
   sqrt
@@ -42,3 +43,13 @@ test('exercise 1.16', () => {
   expect(smallestDivisor(1999)).toEqual(1999);
   expect(smallestDivisor(19999)).toEqual(7);
 })
+
+test('exercise 1.25', () => {
+  const identity = a => a;
+  const increment = a => a + 1;
+  const doubleIncrement = a => a + 2;
+  expect(product(identity, 2, doubleIncrement, 6)).toEqual(48);
+
+  const factorial = product.bind(null, identity, 1, increment);
+  expect(factorial(5)).toEqual(120);
+});
