@@ -12,15 +12,13 @@ export function cdr(p) {
   return p((a, b) => b);
 }
 
-export function makeRat(numerator, denominator) {
-  const isNegative = numerator < 0 || denominator < 0 && !(numerator < 0 && denominator < 0);
-  const absNumer = Math.abs(numerator);
-  const absDenom = Math.abs(denominator);
-  const greatestCommon = gcd(absNumer, absDenom);
+export function makeRat(n, d) {
+  const flipSigns = n < 0 || d < 0;
+  const greatestCommon = gcd(n, d);
 
   return cons(
-    absNumer / greatestCommon * (isNegative ? -1 : 1),
-    absDenom / greatestCommon,
+    n / greatestCommon * (flipSigns ? -1 : 1),
+    d / greatestCommon * (flipSigns ? -1 : 1),
   );
 }
 
