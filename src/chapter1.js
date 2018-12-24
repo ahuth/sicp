@@ -93,12 +93,11 @@ function countPennies(_amount, acc) {
 }
 
 function newtonsMethod(f, guess) {
-  const dF = derive(f);
+  const dF = derive(f, 0.000001);
   return fixedPoint(x => x - (f(x) / dF(x)), guess);
 }
 
-function derive(f) {
-  const dX = 0.000001;
+function derive(f, dX) {
   return x => (f(x + dX) - f(x)) / dX;
 }
 
