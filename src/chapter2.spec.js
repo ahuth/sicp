@@ -3,6 +3,7 @@ import {
   makeRat, addRat, printRat,
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
+  makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv
 } from './chapter2';
 
 test('pairs', () => {
@@ -33,4 +34,23 @@ test('exercise 2.2', () => {
   expect(endPoint(s)).toEqual(b);
   expect(getX(m)).toEqual(5);
   expect(getY(m)).toEqual(3.5);
+});
+
+test('exercise 2.6', () => {
+  const a = makeInterval(1.5, 3.4);
+  const b = makeInterval(2.7, 5.1);
+  expect(lowerBound(a)).toEqual(1.5);
+  expect(upperBound(a)).toEqual(3.4);
+
+  const added = intAdd(a, b);
+  expect(lowerBound(added)).toEqual(4.2);
+  expect(upperBound(added)).toEqual(8.5);
+
+  const multiplied = intMul(a, b);
+  expect(lowerBound(multiplied)).toBeCloseTo(4.05);
+  expect(upperBound(multiplied)).toBeCloseTo(17.34);
+
+  const divided = intDiv(a, b);
+  expect(lowerBound(divided)).toBeCloseTo(0.29);
+  expect(upperBound(divided)).toBeCloseTo(1.26);
 });
