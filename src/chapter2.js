@@ -90,3 +90,10 @@ export function intDiv(a, b) {
     ),
   );
 }
+
+export function intSub(a, b) {
+  return makeInterval(
+    lowerBound(a) - lowerBound(b),
+    upperBound(a) - upperBound(b),
+  );
+}
