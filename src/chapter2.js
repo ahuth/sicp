@@ -97,3 +97,7 @@ export function intSub(a, b) {
     upperBound(a) - upperBound(b),
   );
 }
+
+export function intWidth(x) {
+  return Math.abs(upperBound(x) - lowerBound(x));
+}

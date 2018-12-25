@@ -3,7 +3,7 @@ import {
   makeRat, addRat, printRat,
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
-  makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub,
+  makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth,
 } from './chapter2';
 
 test('pairs', () => {
@@ -61,4 +61,23 @@ test('exercise 2.7', () => {
   const subtracted = intSub(a, b);
   expect(lowerBound(subtracted)).toBeCloseTo(2.6);
   expect(upperBound(subtracted)).toBeCloseTo(-1.3);
+});
+
+test('exercise 2.8', () => {
+  const a = makeInterval(1.5, 3.4);
+  const b = makeInterval(2.7, 5.1);
+
+  const widthA = intWidth(a);
+  const widthB = intWidth(b);
+  expect(widthA).toBeCloseTo(1.9);
+  expect(widthB).toBeCloseTo(2.4);
+
+  const added = intAdd(a, b);
+  const widthAdded = intWidth(added);
+  expect(widthAdded).toBeCloseTo(widthA + widthB);
+
+  const multiplied = intMul(a, b);
+  const widthMultiplied = intWidth(multiplied);
+  expect(widthMultiplied).not.toBeCloseTo(widthA + widthB);
+  expect(widthMultiplied).not.toBeCloseTo(widthA * widthB);
 });
