@@ -23,7 +23,7 @@ export function makeRat(n, d) {
 }
 
 export function printRat(rat) {
-  return `${car(rat)}/${cdr(rat)}`;
+  return `${numer(rat)}/${denom(rat)}`;
 }
 
 export function addRat(a, b) {
