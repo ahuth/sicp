@@ -1,17 +1,8 @@
 import {
-  cons,
-  car,
-  cdr,
-  makeRat,
-  addRat,
-  printRat,
-  makePoint,
-  getX,
-  getY,
-  makeSegment,
-  startPoint,
-  endPoint,
-  midPoint,
+  cons, car, cdr,
+  makeRat, addRat, printRat,
+  makePoint, getX, getY,
+  makeSegment, startPoint, endPoint, midPoint,
 } from './chapter2';
 
 test('pairs', () => {
