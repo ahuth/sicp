@@ -5,6 +5,13 @@ import {
   makeRat,
   addRat,
   printRat,
+  makePoint,
+  getX,
+  getY,
+  makeSegment,
+  startPoint,
+  endPoint,
+  midPoint,
 } from './chapter2';
 
 test('pairs', () => {
@@ -23,4 +30,16 @@ test('exercise 2.1', () => {
 
   const added = addRat(rat1, rat2);
   expect(printRat(added)).toEqual('17/12');
+});
+
+test('exercise 2.2', () => {
+  const a = makePoint(2, 3);
+  const b = makePoint(8, 4);
+  const s = makeSegment(a, b);
+  const m = midPoint(s);
+
+  expect(startPoint(s)).toEqual(a);
+  expect(endPoint(s)).toEqual(b);
+  expect(getX(m)).toEqual(5);
+  expect(getY(m)).toEqual(3.5);
 });
