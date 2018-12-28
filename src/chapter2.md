@@ -39,7 +39,7 @@ s = String.downcase(s)
 
 `String` provides a bunch of functions which take a string and return something new. Just like the authors do.
 
-In fact, my Elixir experience led me to use this in React projects. In [my evolved-salesman one](https://github.com/ahuth/evolved-salesman/blob/495da8ef8487c50d2ec296fcfc74d6d5409aa093/src/utils/chromosome.js), I made heavy use of this.
+In fact, my Elixir experience led me to use this in React projects, such as [my evolved-salesman travelling salesman solver](https://github.com/ahuth/evolved-salesman/blob/495da8ef8487c50d2ec296fcfc74d6d5409aa093/src/utils/chromosome.js).
 
 An example is:
 
