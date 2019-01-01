@@ -120,3 +120,7 @@ export function intPercent(a) {
   const center = intCenter(a);
   return (upper - center) / center;
 }
+
+export function list(...args) {
+  return args.reduceRight((acc, val) => cons(val, acc), null);
+}

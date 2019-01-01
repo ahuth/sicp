@@ -3,7 +3,8 @@ import {
   makeRat, addRat, printRat,
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
-  makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent
+  makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
+  list,
 } from './chapter2';
 
 test('pairs', () => {
@@ -95,4 +96,13 @@ test('exercise 2.11', () => {
   expect(intPercent(b)).toBeCloseTo(0.545);
   expect(lowerBound(b)).toBeCloseTo(1.5);
   expect(upperBound(b)).toBeCloseTo(5.1);
+});
+
+test('lists', () => {
+  const l = list(2, 4, 6, 8);
+  expect(car(l)).toEqual(2);
+  expect(car(cdr(l))).toEqual(4);
+  expect(car(cdr(cdr(l)))).toEqual(6);
+  expect(car(cdr(cdr(cdr(l))))).toEqual(8);
+  expect(cdr(cdr(cdr(cdr(l))))).toEqual(null);
 });
