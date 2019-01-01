@@ -101,3 +101,22 @@ export function intSub(a, b) {
 export function intWidth(x) {
   return Math.abs(upperBound(x) - lowerBound(x));
 }
+
+export function makeIntervalPercent(center, tolerance) {
+  return makeInterval(
+    center - (center * tolerance),
+    center + (center * tolerance),
+  );
+}
+
+export function intCenter(a) {
+  const lower = lowerBound(a);
+  const upper = upperBound(a);
+  return average(lower, upper);
+}
+
+export function intPercent(a) {
+  const upper = upperBound(a);
+  const center = intCenter(a);
+  return (upper - center) / center;
+}
