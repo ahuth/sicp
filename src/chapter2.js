@@ -1,4 +1,4 @@
-import { gcd } from './chapter1';
+import { gcd, square } from './chapter1';
 
 export function cons(a, b) {
   return f => f(a, b);
@@ -163,4 +163,14 @@ export function toString(l, acc = '(') {
   }
 
   return toString(tail, acc + head + ' ');
+}
+
+export function squareList(l) {
+  if (l === EMPTY_LIST) {
+    return EMPTY_LIST;
+  }
+  return cons(
+    square(car(l)),
+    squareList(cdr(l)),
+  );
 }

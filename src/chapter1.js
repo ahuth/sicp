@@ -112,7 +112,7 @@ function fixedPoint(f, start) {
   return iter(f(start), start);
 }
 
-function square(a) {
+export function square(a) {
   return a * a;
 }
 

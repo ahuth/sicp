@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list, nth, last, reverse, toString,
+  list, nth, last, reverse, toString, squareList,
 } from './chapter2';
 
 test('pairs', () => {
@@ -122,4 +122,10 @@ test('exercise 2.16', () => {
 test('exercise 2.17', () => {
   const l = list(1, 1, 2, 3, 5, 8, 11);
   expect(toString(reverse(l))).toEqual('(11 8 5 3 2 1 1)');
+});
+
+test('exercise 2.18', () => {
+  const l = list(2, 3, 4, 5);
+  const squared = squareList(l);
+  expect(toString(squared)).toEqual('(4 9 16 25)');
 });
