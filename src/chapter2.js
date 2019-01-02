@@ -128,11 +128,14 @@ export function list(...args) {
 }
 
 export function nth(l, n) {
+  if (l === EMPTY_LIST) { return undefined; }
   if (n <= 0) { return car(l); }
   return nth(cdr(l), n - 1);
 }
 
 export function last(l) {
+  if (l === EMPTY_LIST) { return undefined; }
+
   const tail = cdr(l);
 
   if (tail == EMPTY_LIST) { return car(l); }
@@ -140,6 +143,8 @@ export function last(l) {
 }
 
 export function reverse(l) {
+  if (l === EMPTY_LIST) { return EMPTY_LIST; }
+
   function iter(acc, a) {
     const head = car(a);
     const tail = cdr(a);
@@ -155,6 +160,8 @@ export function reverse(l) {
 }
 
 export function toString(l, acc = '(') {
+  if (l === EMPTY_LIST) { return '()'; }
+
   const head = car(l);
   const tail = cdr(l);
 
