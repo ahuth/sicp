@@ -121,7 +121,7 @@ export function intPercent(a) {
   return (upper - center) / center;
 }
 
-export const EMPTY_LIST = Symbol('EmptyList');
+const EMPTY_LIST = Symbol('EmptyList');
 
 export function list(...args) {
   return args.reduceRight((acc, val) => cons(val, acc), EMPTY_LIST);

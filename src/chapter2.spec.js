@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  EMPTY_LIST, list, nth, last, reverse, toString,
+  list, nth, last, reverse, toString,
 } from './chapter2';
 
 test('pairs', () => {
@@ -105,7 +105,6 @@ test('lists', () => {
   expect(car(cdr(l))).toEqual(4);
   expect(car(cdr(cdr(l)))).toEqual(6);
   expect(car(cdr(cdr(cdr(l))))).toEqual(8);
-  expect(cdr(cdr(cdr(cdr(l))))).toEqual(EMPTY_LIST);
 
   expect(nth(l, 0)).toEqual(2);
   expect(nth(l, 1)).toEqual(4);
