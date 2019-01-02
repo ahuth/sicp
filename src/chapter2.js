@@ -121,8 +121,10 @@ export function intPercent(a) {
   return (upper - center) / center;
 }
 
+export const EMPTY_LIST = Symbol('EmptyList');
+
 export function list(...args) {
-  return args.reduceRight((acc, val) => cons(val, acc), null);
+  return args.reduceRight((acc, val) => cons(val, acc), EMPTY_LIST);
 }
 
 export function nth(l, n) {
@@ -133,6 +135,6 @@ export function nth(l, n) {
 export function last(l) {
   const tail = cdr(l);
 
-  if (tail == null) { return car(l); }
+  if (tail == EMPTY_LIST) { return car(l); }
   return last(tail);
 }
