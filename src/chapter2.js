@@ -124,3 +124,13 @@ export function intPercent(a) {
 export function list(...args) {
   return args.reduceRight((acc, val) => cons(val, acc), null);
 }
+
+export function nth(l, n) {
+  const head = car(l);
+  const tail = cdr(l);
+
+  if (n <= 0) { return head; }
+  if (tail == null) { return null; }
+
+  return nth(tail, n - 1);
+}

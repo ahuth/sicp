@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list,
+  list, nth,
 } from './chapter2';
 
 test('pairs', () => {
@@ -100,9 +100,17 @@ test('exercise 2.11', () => {
 
 test('lists', () => {
   const l = list(2, 4, 6, 8);
+
   expect(car(l)).toEqual(2);
   expect(car(cdr(l))).toEqual(4);
   expect(car(cdr(cdr(l)))).toEqual(6);
   expect(car(cdr(cdr(cdr(l))))).toEqual(8);
   expect(cdr(cdr(cdr(cdr(l))))).toEqual(null);
+
+  expect(nth(l, 0)).toEqual(2);
+  expect(nth(l, 1)).toEqual(4);
+  expect(nth(l, 2)).toEqual(6);
+  expect(nth(l, 3)).toEqual(8);
+  expect(nth(l, 4)).toEqual(null);
+  expect(nth(l, 5)).toEqual(null);
 });
