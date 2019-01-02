@@ -111,8 +111,6 @@ test('lists', () => {
   expect(nth(l, 1)).toEqual(4);
   expect(nth(l, 2)).toEqual(6);
   expect(nth(l, 3)).toEqual(8);
-  expect(nth(l, 4)).toEqual(null);
-  expect(nth(l, 5)).toEqual(null);
 });
 
 test('exercise 2.16', () => {

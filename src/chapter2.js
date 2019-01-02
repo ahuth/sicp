@@ -126,19 +126,13 @@ export function list(...args) {
 }
 
 export function nth(l, n) {
-  const head = car(l);
-  const tail = cdr(l);
-
-  if (n <= 0) { return head; }
-  if (tail == null) { return null; }
-
-  return nth(tail, n - 1);
+  if (n <= 0) { return car(l); }
+  return nth(cdr(l), n - 1);
 }
 
 export function last(l) {
-  const head = car(l);
   const tail = cdr(l);
 
-  if (tail == null) { return head; }
+  if (tail == null) { return car(l); }
   return last(tail);
 }
