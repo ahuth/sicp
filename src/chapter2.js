@@ -166,11 +166,13 @@ export function toString(l, acc = '(') {
 }
 
 export function squareList(l) {
-  if (l === EMPTY_LIST) {
-    return EMPTY_LIST;
-  }
+  return mapCar(l, square);
+}
+
+export function mapCar(l, f) {
+  if (l === EMPTY_LIST) { return EMPTY_LIST; }
   return cons(
-    square(car(l)),
-    squareList(cdr(l)),
+    f(car(l)),
+    mapCar(cdr(l), f),
   );
 }
