@@ -138,3 +138,18 @@ export function last(l) {
   if (tail == EMPTY_LIST) { return car(l); }
   return last(tail);
 }
+
+export function reverse(l) {
+  function iter(acc, a) {
+    const head = car(a);
+    const tail = cdr(a);
+
+    if (tail === EMPTY_LIST) {
+      return cons(head, acc);
+    }
+
+    return iter(cons(head, acc), tail);
+  }
+
+  return iter(EMPTY_LIST, l);
+}
