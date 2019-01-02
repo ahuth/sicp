@@ -134,3 +134,11 @@ export function nth(l, n) {
 
   return nth(tail, n - 1);
 }
+
+export function last(l) {
+  const head = car(l);
+  const tail = cdr(l);
+
+  if (tail == null) { return head; }
+  return last(tail);
+}

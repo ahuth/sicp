@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list, nth,
+  list, nth, last,
 } from './chapter2';
 
 test('pairs', () => {
@@ -113,4 +113,9 @@ test('lists', () => {
   expect(nth(l, 3)).toEqual(8);
   expect(nth(l, 4)).toEqual(null);
   expect(nth(l, 5)).toEqual(null);
+});
+
+test('exercise 2.16', () => {
+  const l = list(1, 3, 5, 7);
+  expect(last(l)).toEqual(7);
 });
