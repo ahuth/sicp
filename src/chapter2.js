@@ -153,3 +153,14 @@ export function reverse(l) {
 
   return iter(EMPTY_LIST, l);
 }
+
+export function toString(l, acc = '(') {
+  const head = car(l);
+  const tail = cdr(l);
+
+  if (tail === EMPTY_LIST) {
+    return acc + head + ')';
+  }
+
+  return toString(tail, acc + head + ' ');
+}
