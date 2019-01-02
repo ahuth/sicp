@@ -170,9 +170,16 @@ export function squareList(l) {
 }
 
 export function mapCar(l, f) {
-  if (l === EMPTY_LIST) { return EMPTY_LIST; }
-  return cons(
-    f(car(l)),
-    mapCar(cdr(l), f),
-  );
+  function iter(acc, x) {
+    if (x === EMPTY_LIST) { return reverse(acc); }
+    return iter(
+      cons(
+        f(car(x)),
+        acc,
+      ),
+      cdr(x),
+    );
+  }
+
+  return iter(EMPTY_LIST, l);
 }
