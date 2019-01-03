@@ -156,17 +156,14 @@ export function reverse(l, acc = EMPTY_LIST) {
 }
 
 export function toString(l, acc = '(') {
-  if (isEmpty(l)) { return '()'; }
+  if (isEmpty(l)) { return acc + ')'; }
+  if (isAtom(l)) { return l; }
 
   const head = car(l);
   const tail = cdr(l);
-  const current = isAtom(head) ? head : toString(head);
+  const trailing = isEmpty(tail) ? '' : ' ';
 
-  if (isEmpty(tail)) {
-    return acc + current + ')';
-  }
-
-  return toString(tail, acc + current + ' ');
+  return toString(tail, acc + toString(head) + trailing);
 }
 
 export function squareList(l) {
