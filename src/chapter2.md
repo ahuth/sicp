@@ -50,3 +50,87 @@ const cost = Math.round(Chromosome.cost(fittest));
 ```
 
 Seems to work really well to help separate out the application logic (basically domain models) from the UI (React components).
+
+## Lists of Lists
+
+Traversing a flat list turns out to be pretty straightforward. Something like:
+
+```scheme
+(list 1 2 3 4)
+```
+
+Ends up really being:
+
+```scheme
+(cons 1 (cons 2 (cons 3 (cons 4 nil))))
+```
+
+And then we can get the 3 with something like:
+
+```scheme
+(car (cdr (cdr the-list)))
+```
+
+Which makes sense.
+
+However, things get funky when we have a list of lists. For example:
+
+```scheme
+(list 1 (list 2 (list 3 4)))
+```
+
+This is really the same as:
+
+```scheme
+(cons
+  1
+  (cons
+    (cons
+      2
+      (cons
+        (cons
+          3
+          (cons
+            4
+            nil))
+        nil))
+    nil))
+```
+
+...or something like that.
+
+The top-level list here has 3 items:
+1. 1
+2. Second list
+3. The empty list (or `nil` in scheme)
+
+Which could be represented as:
+
+```scheme
+(cons 1 (cons second-list nil))
+```
+
+which is the first part of all those nested conses above. Then the second list also has 3 items:
+1. 2
+2. Third list
+3. The empty list
+
+Or:
+
+```scheme
+(cons 2 (cons third-list nil))
+```
+
+Finally, the third list is:
+
+```scheme
+(cons 3 (cons 4 nil))
+```
+
+Putting them all together, we get our crazy example. And from there we can see that it's more complicated to traverse down to a specific value. Now to get to the 3, we need:
+
+```scheme
+(car (car (cdr (car (cdr l)))))
+```
+
+Don't know about you, but that's hard for me to visualize without writing it all out on paper.
