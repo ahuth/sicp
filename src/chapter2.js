@@ -215,3 +215,13 @@ export function isAtom(x) {
 export function isEmpty(x) {
   return x === EMPTY_LIST;
 }
+
+export function deepReverse(l, acc = EMPTY_LIST) {
+  if (isEmpty(l)) { return acc; }
+  if (isAtom(l)) { return l; }
+
+  const head = car(l);
+  const tail = cdr(l);
+
+  return deepReverse(tail, cons(deepReverse(head), acc));
+}
