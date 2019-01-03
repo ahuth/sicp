@@ -197,12 +197,13 @@ export function mapCar(l, f) {
 }
 
 export function append(a, b) {
-  if (a === EMPTY_LIST) { return b; }
-  return cons(
-    car(a),
-    append(
-      cdr(a),
-      b,
-    ),
-  );
+  function iter(acc, x) {
+    if (x === EMPTY_LIST) { return acc; }
+    return iter(
+      cons(car(x), acc),
+      cdr(x),
+    );
+  }
+
+  return iter(b, reverse(a));
 }
