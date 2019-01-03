@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list, nth, last, reverse, toString, squareList, mapCar,
+  list, nth, last, reverse, toString, squareList, mapCar, append,
 } from './chapter2';
 
 test('pairs', () => {
@@ -150,4 +150,11 @@ test('exercise 2.23', () => {
 
   const c = list(1, list(2, list(3, list(4, list(5, list(6, list(7)))))));
   expect(car(car(cdr(car(cdr(car(cdr(car(cdr(car(cdr(car(cdr(c)))))))))))))).toEqual(7);
+});
+
+test('exercise 2.24', () => {
+  const x = list(1, 2, 3);
+  const y = list(4, 5, 6);
+  expect(toString(append(x, y))).toEqual('(1 2 3 4 5 6)');
+  expect(toString(list(x, y))).toEqual('((1 2 3) (4 5 6))');
 });

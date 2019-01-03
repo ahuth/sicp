@@ -195,3 +195,14 @@ export function mapCar(l, f) {
 
   return iter(EMPTY_LIST, l);
 }
+
+export function append(a, b) {
+  if (a === EMPTY_LIST) { return b; }
+  return cons(
+    car(a),
+    append(
+      cdr(a),
+      b,
+    ),
+  );
+}
