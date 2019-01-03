@@ -135,3 +135,8 @@ test('exercise 2.20', () => {
   const b = mapCar(a, x => x + 1);
   expect(toString(b)).toEqual('(10 9 8 7)');
 });
+
+test('exercise 2.22', () => {
+  const l = list(1, list(2, list(3, 4)));
+  expect(toString(l)).toEqual('(1 (2 (3 4)))');
+});

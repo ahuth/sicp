@@ -165,11 +165,14 @@ export function toString(l, acc = '(') {
   const head = car(l);
   const tail = cdr(l);
 
+  const isCons = typeof head === 'function';
+  const current = isCons ? toString(head) : head;
+
   if (tail === EMPTY_LIST) {
-    return acc + head + ')';
+    return acc + current + ')';
   }
 
-  return toString(tail, acc + head + ' ');
+  return toString(tail, acc + current + ' ');
 }
 
 export function squareList(l) {
