@@ -203,4 +203,9 @@ test('exercise 2.29', () => {
     list('this', 'is', 'a', 'list'),
     list('this', list('is', 'a'), 'list'),
   )).toEqual(false);
+
+  expect(equal(
+    list('this', 'is', 'a', 'list'),
+    list('this', 'is', 'no', 'list'),
+  )).toEqual(false);
 });
