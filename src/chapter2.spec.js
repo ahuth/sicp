@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list, nth, last, reverse, toString, squareList, mapCar, append,
+  list, nth, last, reverse, toString, squareList, mapCar, append, isAtom, isEmpty,
 } from './chapter2';
 
 test('pairs', () => {
@@ -157,4 +157,20 @@ test('exercise 2.24', () => {
   const y = list(4, 5, 6);
   expect(toString(append(x, y))).toEqual('(1 2 3 4 5 6)');
   expect(toString(list(x, y))).toEqual('((1 2 3) (4 5 6))');
+});
+
+test('atoms and empty', () => {
+  let val = list();
+  expect(toString(val)).toEqual('()');
+  expect(isEmpty(val)).toEqual(true);
+  expect(isAtom(val)).toEqual(true);
+
+  val = list(1, 2, 3);
+  expect(toString(val)).toEqual('(1 2 3)');
+  expect(isEmpty(val)).toEqual(false);
+  expect(isAtom(val)).toEqual(false);
+
+  val = 666;
+  expect(isEmpty(val)).toEqual(false);
+  expect(isAtom(val)).toEqual(true);
 });

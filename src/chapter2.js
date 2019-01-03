@@ -132,28 +132,28 @@ export function list(...args) {
 }
 
 export function nth(l, n) {
-  if (l === EMPTY_LIST) { return undefined; }
+  if (isEmpty(l)) { return undefined; }
   if (n <= 0) { return car(l); }
   return nth(cdr(l), n - 1);
 }
 
 export function last(l) {
-  if (l === EMPTY_LIST) { return undefined; }
+  if (isEmpty(l)) { return undefined; }
 
   const tail = cdr(l);
 
-  if (tail == EMPTY_LIST) { return car(l); }
+  if (isEmpty(tail)) { return car(l); }
   return last(tail);
 }
 
 export function reverse(l) {
-  if (l === EMPTY_LIST) { return EMPTY_LIST; }
+  if (isEmpty(l)) { return EMPTY_LIST; }
 
   function iter(acc, a) {
     const head = car(a);
     const tail = cdr(a);
 
-    if (tail === EMPTY_LIST) {
+    if (isEmpty(tail)) {
       return cons(head, acc);
     }
 
@@ -164,13 +164,13 @@ export function reverse(l) {
 }
 
 export function toString(l, acc = '(') {
-  if (l === EMPTY_LIST) { return '()'; }
+  if (isEmpty(l)) { return '()'; }
 
   const head = car(l);
   const tail = cdr(l);
-  const current = head[IS_CONS] ? toString(head) : head;
+  const current = isAtom(head) ? head : toString(head);
 
-  if (tail === EMPTY_LIST) {
+  if (isEmpty(tail)) {
     return acc + current + ')';
   }
 
@@ -183,7 +183,7 @@ export function squareList(l) {
 
 export function mapCar(l, f) {
   function iter(acc, x) {
-    if (x === EMPTY_LIST) { return reverse(acc); }
+    if (isEmpty(x)) { return reverse(acc); }
     return iter(
       cons(
         f(car(x)),
@@ -198,7 +198,7 @@ export function mapCar(l, f) {
 
 export function append(a, b) {
   function iter(acc, x) {
-    if (x === EMPTY_LIST) { return acc; }
+    if (isEmpty(x)) { return acc; }
     return iter(
       cons(car(x), acc),
       cdr(x),
@@ -206,4 +206,12 @@ export function append(a, b) {
   }
 
   return iter(b, reverse(a));
+}
+
+export function isAtom(x) {
+  return !x[IS_CONS];
+}
+
+export function isEmpty(x) {
+  return x === EMPTY_LIST;
 }
