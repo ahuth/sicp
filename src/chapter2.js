@@ -1,7 +1,11 @@
 import { gcd, square } from './chapter1';
 
+const IS_CONS = Symbol('IsCons');
+
 export function cons(a, b) {
-  return f => f(a, b);
+  const val = f => f(a, b);
+  val[IS_CONS] = true;
+  return val;
 }
 
 export function car(p) {
@@ -164,9 +168,7 @@ export function toString(l, acc = '(') {
 
   const head = car(l);
   const tail = cdr(l);
-
-  const isCons = typeof head === 'function';
-  const current = isCons ? toString(head) : head;
+  const current = head[IS_CONS] ? toString(head) : head;
 
   if (tail === EMPTY_LIST) {
     return acc + current + ')';
