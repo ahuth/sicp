@@ -147,15 +147,11 @@ export function last(l) {
 }
 
 export function reverse(l) {
-  if (isEmpty(l)) { return EMPTY_LIST; }
-
   function iter(acc, a) {
+    if (isEmpty(a)) { return acc; }
+
     const head = car(a);
     const tail = cdr(a);
-
-    if (isEmpty(tail)) {
-      return cons(head, acc);
-    }
 
     return iter(cons(head, acc), tail);
   }
