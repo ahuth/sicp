@@ -156,6 +156,7 @@ test('exercise 2.24', () => {
   const x = list(1, 2, 3);
   const y = list(4, 5, 6);
   expect(toString(append(x, y))).toEqual('(1 2 3 4 5 6)');
+  expect(toString(cons(x, y))).toEqual('((1 2 3) 4 5 6)');
   expect(toString(list(x, y))).toEqual('((1 2 3) (4 5 6))');
 });
 
