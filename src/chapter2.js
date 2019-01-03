@@ -219,3 +219,10 @@ export function fringe(l) {
 
   return append(fringe(head), fringe(tail));
 }
+
+export function equal(x, y) {
+  if (isEmpty(x) || isEmpty(y)) { return isEmpty(x) && isEmpty(y); }
+  if (isAtom(x) || isAtom(y)) { return x === y; }
+
+  return equal(car(x), car(y)) && equal(cdr(x), cdr(y));
+}
