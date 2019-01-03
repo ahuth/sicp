@@ -146,17 +146,13 @@ export function last(l) {
   return last(tail);
 }
 
-export function reverse(l) {
-  function iter(acc, a) {
-    if (isEmpty(a)) { return acc; }
+export function reverse(l, acc = EMPTY_LIST) {
+  if (isEmpty(l)) { return acc; }
 
-    const head = car(a);
-    const tail = cdr(a);
+  const head = car(l);
+  const tail = cdr(l);
 
-    return iter(cons(head, acc), tail);
-  }
-
-  return iter(EMPTY_LIST, l);
+  return reverse(tail, cons(head, acc));
 }
 
 export function toString(l, acc = '(') {
@@ -177,19 +173,14 @@ export function squareList(l) {
   return mapCar(l, square);
 }
 
-export function mapCar(l, f) {
-  function iter(acc, x) {
-    if (isEmpty(x)) { return reverse(acc); }
-    return iter(
-      cons(
-        f(car(x)),
-        acc,
-      ),
-      cdr(x),
-    );
-  }
+export function mapCar(l, f, acc = EMPTY_LIST) {
+  if (isEmpty(l)) { return reverse(acc); }
 
-  return iter(EMPTY_LIST, l);
+  return mapCar(
+    cdr(l),
+    f,
+    cons(f(car(l)), acc),
+  );
 }
 
 export function append(a, b) {
