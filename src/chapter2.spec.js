@@ -4,7 +4,7 @@ import {
   makePoint, getX, getY,
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
-  list, nth, last, reverse, toString, squareList, mapCar, append, isAtom, isEmpty, deepReverse,
+  list, nth, last, reverse, toString, squareList, mapCar, append, isAtom, isEmpty, deepReverse, fringe,
 } from './chapter2';
 
 test('pairs', () => {
@@ -181,4 +181,14 @@ test('exercise 2.25', () => {
   expect(toString(l)).toEqual('((1 2) 3 4)');
   expect(toString(reverse(l))).toEqual('(4 3 (1 2))');
   expect(toString(deepReverse(l))).toEqual('(4 3 (2 1))');
+});
+
+test('exercise 2.26', () => {
+  const x = cons(list(1, 2), list(3, 4));
+  expect(toString(x)).toEqual('((1 2) 3 4)');
+  expect(toString(fringe(x))).toEqual('(1 2 3 4)');
+
+  const y = list(x, x);
+  expect(toString(y)).toEqual('(((1 2) 3 4) ((1 2) 3 4))');
+  expect(toString(fringe(y))).toEqual('(1 2 3 4 1 2 3 4)');
 });

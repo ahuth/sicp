@@ -209,3 +209,13 @@ export function deepReverse(l, acc = EMPTY_LIST) {
 
   return deepReverse(tail, cons(deepReverse(head), acc));
 }
+
+export function fringe(l) {
+  if (isEmpty(l)) { return EMPTY_LIST; }
+  if (isAtom(l)) { return list(l); }
+
+  const head = car(l);
+  const tail = cdr(l);
+
+  return append(fringe(head), fringe(tail));
+}
