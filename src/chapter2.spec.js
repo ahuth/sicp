@@ -140,3 +140,14 @@ test('exercise 2.22', () => {
   const l = list(1, list(2, list(3, 4)));
   expect(toString(l)).toEqual('(1 (2 (3 4)))');
 });
+
+test('exercise 2.23', () => {
+  const a = list(1, list(2, 3, list(5, 7), 9));
+  expect(car(cdr(car(cdr(cdr(car(cdr(a)))))))).toEqual(7);
+
+  const b = list(list(7));
+  expect(car(car(b))).toEqual(7);
+
+  const c = list(1, list(2, list(3, list(4, list(5, list(6, list(7)))))));
+  expect(car(car(cdr(car(cdr(car(cdr(car(cdr(car(cdr(car(cdr(c)))))))))))))).toEqual(7);
+});
