@@ -212,9 +212,9 @@ test('exercise 2.29', () => {
 });
 
 test('symbolic differentiation', () => {
-  const e1 = makeSum('x', 3);
-  const e2 = makeProduct('x', 'y');
-  const e3 = makeProduct(e2, e1);
+  const e1 = makeSum('x', 3);       // x + 3
+  const e2 = makeProduct('x', 'y'); // xy
+  const e3 = makeProduct(e2, e1);   // xy(x + 3)
 
   const d1 = derive(e1, 'x');
   expect(d1).toEqual(1);
