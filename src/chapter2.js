@@ -252,10 +252,17 @@ export function derive(exp, withRespectTo) {
 }
 
 export function makeSum(a1, a2) {
+  if (isNumber(a1) && isNumber(a2)) { return a1 + a2; }
+  if (a1 === 0) { return a2; }
+  if (a2 === 0) { return a1; }
   return list('+', a1, a2);
 }
 
 export function makeProduct(m1, m2) {
+  if (isNumber(m1) && isNumber(m2)) { return m1 * m2; }
+  if (m1 === 0 || m2 === 0) { return 0; }
+  if (m1 === 1) { return m2; }
+  if (m2 === 1) { return m1; }
   return list('*', m1, m2);
 }
 
@@ -289,4 +296,8 @@ function isConstant(exp, withRespectTo) {
 
 function isVariable(exp, withRespectTo) {
   return isAtom(exp) && exp === withRespectTo;
+}
+
+function isNumber(x) {
+  return typeof x === 'number';
 }
