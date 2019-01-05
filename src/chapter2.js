@@ -192,8 +192,12 @@ export function append(a, b) {
   return iter(b, reverse(a));
 }
 
+export function isPair(x) {
+  return x && x[IS_CONS];
+}
+
 export function isAtom(x) {
-  return !x[IS_CONS];
+  return !isPair(x);
 }
 
 export function isEmpty(x) {
