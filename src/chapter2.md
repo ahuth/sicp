@@ -134,3 +134,17 @@ Putting them all together, we get our crazy example. And from there we can see t
 ```
 
 Don't know about you, but that's hard for me to visualize without writing it all out on paper.
+
+## Building a "language" to talk about things
+
+Really interesting point in [lecture 3A](https://www.youtube.com/watch?v=2QgZVYI3tDs&t=10s&list=PLE18841CABEA24090&index=6) (not sure this is covered explicitly in the book):
+
+It can be tempting to break a problem down into subtasks, and feel really good about the fact that we've decomposed a system down into easier problems. However, that can oftentimes lead us with brittle code, where a small change requires a big change in the system. Can happen because a change to one submodule requires all of its submodules to be changed as well.
+
+Something more powerful is to build up abstractions in terms of a language for us to talk about things. And any layer of abstraction is written it terms of some language from another layer (not multiple other layers, hopefully).
+
+For example, pictures can be implemented in terms of lines and rectangles, which in turn can be implemented in terms of vectors, which can be implemented in terms of points, which can be implemented in terms of pairs. Overall this feels much less "coupled".
+
+Also ties nicely in to [Ousterhout's A Philosophy of Software Design](https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201). Reading that book was the first time I've really thought about how different levels of abstraction tie in together.
+
+It's all too common in software to split out submodules that don't really provide a layer of abstraction, and are really just shifting code or tasks into another file. See it with "service objects" in Rails apps all the time.
