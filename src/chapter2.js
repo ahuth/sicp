@@ -230,3 +230,63 @@ export function equal(x, y) {
 
   return equal(car(x), car(y)) && equal(cdr(x), cdr(y));
 }
+
+export function derive(exp, withRespectTo) {
+  if (isConstant(exp, withRespectTo)) { return 0; }
+  if (isVariable(exp, withRespectTo)) { return 1; }
+  if (isSum(exp)) {
+    // Derivative of a sum is the derivatives of the parts summed together.
+    return makeSum(
+      derive(addend(exp), withRespectTo),
+      derive(augend(exp), withRespectTo),
+    );
+  }
+  if (isProduct(exp)) {
+    // Derivative of a product is the sum of the first times the derivative of the second and the
+    // second times the derivative of the first.
+    return makeSum(
+      makeProduct(multiplier(exp), derive(multiplicand(exp), withRespectTo)),
+      makeProduct(multiplicand(exp), derive(multiplier(exp), withRespectTo)),
+    );
+  }
+}
+
+export function makeSum(a1, a2) {
+  return list('+', a1, a2);
+}
+
+export function makeProduct(m1, m2) {
+  return list('*', m1, m2);
+}
+
+function isSum(e) {
+  return isPair(e) && nth(e, 0) === '+';
+}
+
+function addend(e) {
+  return nth(e, 1);
+}
+
+function augend(e) {
+  return nth(e, 2);
+}
+
+function isProduct(e) {
+  return isPair(e) && nth(e, 0) === '*';
+}
+
+function multiplier(e) {
+  return nth(e, 1);
+}
+
+function multiplicand(e) {
+  return nth(e, 2);
+}
+
+function isConstant(exp, withRespectTo) {
+  return isAtom(exp) && exp !== withRespectTo;
+}
+
+function isVariable(exp, withRespectTo) {
+  return isAtom(exp) && exp === withRespectTo;
+}

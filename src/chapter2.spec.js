@@ -5,6 +5,7 @@ import {
   makeSegment, startPoint, endPoint, midPoint,
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
   list, nth, last, reverse, toString, squareList, mapCar, append, isAtom, isEmpty, deepReverse, fringe, equal,
+  makeSum, makeProduct, derive,
 } from './chapter2';
 
 test('pairs', () => {
@@ -208,4 +209,19 @@ test('exercise 2.29', () => {
     list('this', 'is', 'a', 'list'),
     list('this', 'is', 'no', 'list'),
   )).toEqual(false);
+});
+
+test('symbolic differentiation', () => {
+  const e1 = makeSum('x', 3);
+  const e2 = makeProduct('x', 'y');
+  const e3 = makeProduct(e2, e1);
+
+  const d1 = derive(e1, 'x');
+  expect(toString(d1)).toEqual('(+ 1 0)');
+
+  const d2 = derive(e2, 'x');
+  expect(toString(d2)).toEqual('(+ (* x 0) (* y 1))');
+
+  const d3 = derive(e3, 'x');
+  expect(toString(d3)).toEqual('(+ (* (* x y) (+ 1 0)) (* (+ x 3) (+ (* x 0) (* y 1))))');
 });
