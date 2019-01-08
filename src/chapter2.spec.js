@@ -216,14 +216,9 @@ test('symbolic differentiation', () => {
   const e2 = makeProduct('x', 'y'); // xy
   const e3 = makeProduct(e2, e1);   // xy(x + 3)
 
-  const d1 = derive(e1, 'x');
-  expect(d1).toEqual(1);
-
-  const d2 = derive(e2, 'x');
-  expect(d2).toEqual('y');
-
-  const d3 = derive(e3, 'x');
-  expect(toString(d3)).toEqual('(+ (* x y) (* (+ x 3) y))');
+  expect(derive(e1, 'x')).toEqual(1);
+  expect(derive(e2, 'x')).toEqual('y');
+  expect(toString(derive(e3, 'x'))).toEqual('(+ (* x y) (* (+ x 3) y))');
 
   // (a * x * x) + (b * x + c)
   const foo = makeSum(
