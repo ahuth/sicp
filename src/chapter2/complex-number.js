@@ -2,30 +2,30 @@ import { cons, car, cdr } from './pair';
 import { square, sqrt } from '../chapter1';
 
 export function makeRectangular(r, i) {
-  return cons(
-    sqrt(square(r) + square(i)),
-    Math.atan2(i, r),
-  );
+  return cons(r, i);
 }
 
 export function makePolar(r, a) {
-  return cons(r, a);
+  return cons(
+    r * Math.cos(a),
+    r * Math.sin(a),
+  );
 }
 
 export function realPart(z) {
-  return magnitude(z) * Math.cos(angle(z));
-}
-
-export function imagPart(z) {
-  return magnitude(z) * Math.sin(angle(z));
-}
-
-export function magnitude(z) {
   return car(z);
 }
 
-export function angle(z) {
+export function imagPart(z) {
   return cdr(z);
+}
+
+export function magnitude(z) {
+  return sqrt(square(realPart(z)) + square(imagPart(z)));
+}
+
+export function angle(z) {
+  return Math.atan2(imagPart(z), realPart(z));
 }
 
 export function complexAdd(x, y) {
