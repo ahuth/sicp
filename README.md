@@ -21,4 +21,4 @@ npm test
 ## Notes
 
 - [Chapter 1](./src/chapter1.md)
-- [Chapter 2](./src/chapter2.md)
+- [Chapter 2](./src/chapter2/README.md)
