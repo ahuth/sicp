@@ -16,6 +16,14 @@ export function cdr(p) {
   return p((a, b) => b);
 }
 
+export function cadr(p) {
+  return car(cdr(p));
+}
+
+export function caddr(p) {
+  return car(cdr(cdr(p)));
+}
+
 export function makeRat(n, d) {
   const flipSigns = n < 0 || d < 0;
   const greatestCommon = gcd(n, d);
@@ -267,28 +275,17 @@ export function makeProduct(m1, m2) {
 }
 
 function isSum(e) {
-  return isPair(e) && nth(e, 0) === '+';
-}
-
-function addend(e) {
-  return nth(e, 1);
-}
-
-function augend(e) {
-  return nth(e, 2);
+  return isPair(e) && car(e) === '+';
 }
 
 function isProduct(e) {
-  return isPair(e) && nth(e, 0) === '*';
+  return isPair(e) && car(e) === '*';
 }
 
-function multiplier(e) {
-  return nth(e, 1);
-}
-
-function multiplicand(e) {
-  return nth(e, 2);
-}
+const addend = cadr;
+const augend = caddr;
+const multiplier = cadr;
+const multiplicand = caddr;
 
 function isConstant(exp, withRespectTo) {
   return isAtom(exp) && exp !== withRespectTo;
