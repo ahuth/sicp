@@ -232,13 +232,13 @@ test('symbolic differentiation', () => {
   expect(toString(derive(foo, 'c'))).toEqual(1);
 });
 
-test('exercise 2.33', () => {
+test('exercises 2.33, 2.35, and 2.36', () => {
   const odds = list(1, 3, 5, 7);
   const evens = list(2, 4, 6, 8);
   const primes = list(2, 3, 5, 7);
 
   const otherSet = adjoinSet(evens, 666);
-  expect(toString(otherSet)).toEqual('(666 2 4 6 8)');
+  expect(toString(otherSet)).toEqual('(2 4 6 8 666)');
 
   expect(isElementOfSet(odds, 2)).toEqual(false);
   expect(isElementOfSet(evens, 2)).toEqual(true);
@@ -248,7 +248,7 @@ test('exercise 2.33', () => {
   expect(toString(intersectionSet(odds, primes))).toEqual('(3 5 7)');
   expect(toString(intersectionSet(evens, primes))).toEqual('(2)');
 
-  expect(toString(unionSet(odds, evens))).toEqual('(1 3 5 7 2 4 6 8)');
+  expect(toString(unionSet(odds, evens))).toEqual('(1 2 3 4 5 6 7 8)');
   expect(toString(unionSet(odds, primes))).toEqual('(1 2 3 5 7)');
-  expect(toString(unionSet(evens, primes))).toEqual('(4 6 8 2 3 5 7)');
+  expect(toString(unionSet(evens, primes))).toEqual('(2 3 4 5 6 7 8)');
 });

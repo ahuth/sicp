@@ -305,33 +305,67 @@ function isNumber(x) {
 export function isElementOfSet(set, x) {
   if (isEmpty(set)) { return false; }
   if (x === car(set)) { return true; }
+  if (x < car(set)) { return false; }
   return isElementOfSet(cdr(set), x);
 }
 
 export function adjoinSet(set, x) {
-  if (isElementOfSet(set, x)) { return set; }
-  return cons(x, set);
+  if (isEmpty(set)) { return list(x); }
+
+  const head = car(set);
+
+  if (x === head) { return set; }
+  if (x < head) { return cons(x, set); }
+
+  return cons(
+    car(set),
+    adjoinSet(cdr(set), x),
+  );
 }
 
 export function intersectionSet(a, b) {
   if (isEmpty(a) || isEmpty(b)) { return EMPTY_LIST; }
-  if (isElementOfSet(b, car(a))) {
+
+  const headA = car(a);
+  const headB = car(b);
+
+  if (headA === headB) {
     return cons(
-      car(a),
-      intersectionSet(cdr(a), b),
+      headA,
+      intersectionSet(cdr(a), cdr(b)),
     );
   }
-  return intersectionSet(cdr(a), b);
+
+  if (headA < headB) {
+    return intersectionSet(cdr(a), b);
+  }
+
+  return intersectionSet(a, cdr(b));
 }
 
 export function unionSet(a, b) {
   if (isEmpty(a)) { return b; }
   if (isEmpty(b)) { return a; }
-  if (isElementOfSet(b, car(a))) {
-    return unionSet(cdr(a), b);
+
+  const headA = car(a);
+  const headB = car(b);
+
+  if (headA === headB) {
+    return cons(
+      headA,
+      unionSet(cdr(a), cdr(b)),
+    );
   }
+
+  if (headA < headB) {
+    return cons(
+      headA,
+      unionSet(cdr(a), b),
+    );
+  }
+
   return cons(
-    car(a),
-    unionSet(cdr(a), b),
+    headB,
+    unionSet(a, cdr(b)),
   );
 }
