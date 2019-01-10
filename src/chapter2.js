@@ -301,3 +301,37 @@ function isVariable(exp, withRespectTo) {
 function isNumber(x) {
   return typeof x === 'number';
 }
+
+export function isElementOfSet(set, x) {
+  if (isEmpty(set)) { return false; }
+  if (x === car(set)) { return true; }
+  return isElementOfSet(cdr(set), x);
+}
+
+export function adjoinSet(set, x) {
+  if (isElementOfSet(set, x)) { return set; }
+  return cons(x, set);
+}
+
+export function intersectionSet(a, b) {
+  if (isEmpty(a) || isEmpty(b)) { return EMPTY_LIST; }
+  if (isElementOfSet(b, car(a))) {
+    return cons(
+      car(a),
+      intersectionSet(cdr(a), b),
+    );
+  }
+  return intersectionSet(cdr(a), b);
+}
+
+export function unionSet(a, b) {
+  if (isEmpty(a)) { return b; }
+  if (isEmpty(b)) { return a; }
+  if (isElementOfSet(b, car(a))) {
+    return unionSet(cdr(a), b);
+  }
+  return cons(
+    car(a),
+    unionSet(cdr(a), b),
+  );
+}

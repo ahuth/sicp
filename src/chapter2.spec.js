@@ -6,6 +6,7 @@ import {
   makeInterval, upperBound, lowerBound, intAdd, intMul, intDiv, intSub, intWidth, makeIntervalPercent, intCenter, intPercent,
   list, nth, last, reverse, toString, squareList, mapCar, append, isAtom, isEmpty, deepReverse, fringe, equal,
   makeSum, makeProduct, derive,
+  unionSet, intersectionSet, adjoinSet, isElementOfSet,
 } from './chapter2';
 
 test('pairs', () => {
@@ -229,4 +230,25 @@ test('symbolic differentiation', () => {
   expect(toString(derive(foo, 'a'))).toEqual('(* x x)');
   expect(toString(derive(foo, 'b'))).toEqual('x');
   expect(toString(derive(foo, 'c'))).toEqual(1);
+});
+
+test('exercise 2.33', () => {
+  const odds = list(1, 3, 5, 7);
+  const evens = list(2, 4, 6, 8);
+  const primes = list(2, 3, 5, 7);
+
+  const otherSet = adjoinSet(evens, 666);
+  expect(toString(otherSet)).toEqual('(666 2 4 6 8)');
+
+  expect(isElementOfSet(odds, 2)).toEqual(false);
+  expect(isElementOfSet(evens, 2)).toEqual(true);
+  expect(isElementOfSet(primes, 2)).toEqual(true);
+
+  expect(toString(intersectionSet(odds, evens))).toEqual('()');
+  expect(toString(intersectionSet(odds, primes))).toEqual('(3 5 7)');
+  expect(toString(intersectionSet(evens, primes))).toEqual('(2)');
+
+  expect(toString(unionSet(odds, evens))).toEqual('(1 3 5 7 2 4 6 8)');
+  expect(toString(unionSet(odds, primes))).toEqual('(1 2 3 5 7)');
+  expect(toString(unionSet(evens, primes))).toEqual('(4 6 8 2 3 5 7)');
 });
