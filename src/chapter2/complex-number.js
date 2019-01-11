@@ -2,45 +2,31 @@ import { cons, car, cdr, isAtom } from './pair';
 import { square, sqrt } from '../chapter1';
 
 export function makeRectangular(r, i) {
-  function dispatch(message) {
-    switch (message) {
-      case 'realPart':
-        return r;
-      case 'imagPart':
-        return i;
-      case 'magnitude':
-        return sqrt(square(r) + square(i));
-      case 'angle':
-        return Math.atan2(i, r);
-      default:
-        throw new Error(`Unknown op: ${message}`);
-    }
-  }
-
-  return dispatch;
+  return attachType('rectangular', cons(r, i));
 }
 
 export function makePolar(r, a) {
-  function dispatch(message) {
-    switch (message) {
-      case 'realPart':
-        return r * Math.cos(a);
-      case 'imagPart':
-        return r * Math.sin(a);
-      case 'magnitude':
-        return r;
-      case 'angle':
-        return a;
-      default:
-        throw new Error(`Unknown op: ${message}`);
-    }
-  }
+  return attachType('polar', cons(r, a));
+}
 
-  return dispatch;
+const opTable = {};
+
+function put(name, op, item) {
+  opTable[name] = opTable[name] || {};
+  opTable[name][op] = item;
+}
+
+function get(name, op) {
+  return opTable[name] && opTable[name][op];
 }
 
 function operate(op, obj) {
-  return obj(op);
+  const proc = get(type(obj), op);
+  if (proc) {
+    return proc(contents(obj));
+  } else {
+    throw new Error(`Operator undefined for this type -- OPERATE ${toString(list(op, obj))}`);
+  }
 }
 
 export function realPart(z) {
@@ -85,4 +71,64 @@ export function complexDiv(x, y) {
     magnitude(x) / magnitude(y),
     angle(x) - angle(y),
   );
+}
+
+function attachType(type, contents) {
+  return cons(type, contents);
+}
+
+function type(datum) {
+  if (isAtom(datum)) {
+    throw new Error(`Bad typed datum -- TYPE: ${datum}`);
+  }
+  return car(datum);
+}
+
+function contents(datum) {
+  if (isAtom(datum)) {
+    throw new Error(`Bad typed datum -- CONTENTS: ${datum}`);
+  }
+  return cdr(datum);
+}
+
+put('rectangular', 'realPart', realPartRectangular);
+put('rectangular', 'imagPart', imagPartRectangular);
+put('rectangular', 'magnitude', magnitudeRectangular);
+put('rectangular', 'angle', angleRectangular);
+
+put('polar', 'realPart', realPartPolar);
+put('polar', 'imagPart', imagPartPolar);
+put('polar', 'magnitude', magnitudePolar);
+put('polar', 'angle', anglePolar);
+
+function realPartRectangular(z) {
+  return car(z);
+}
+
+function imagPartRectangular(z) {
+  return cdr(z);
+}
+
+function magnitudeRectangular(z) {
+  return sqrt(square(realPartRectangular(z)) + square(imagPartRectangular(z)));
+}
+
+function angleRectangular(z) {
+  return Math.atan2(imagPartRectangular(z), realPartRectangular(z));
+}
+
+function magnitudePolar(z) {
+  return car(z);
+}
+
+function anglePolar(z) {
+  return cdr(z);
+}
+
+function realPartPolar(z) {
+  return magnitudePolar(z) * Math.cos(anglePolar(z));
+}
+
+function imagPartPolar(z) {
+  return magnitudePolar(z) * Math.sin(anglePolar(z));
 }
