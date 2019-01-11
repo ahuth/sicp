@@ -1,9 +1,9 @@
 import { contents } from './complex-number';
-import { makeNumber, add, sub, mul, div } from './generic-arithmetic-operators';
+import { add, sub, mul, div } from './generic-arithmetic-operators';
 
 test('numbers', () => {
-  const a = makeNumber(4);
-  const b = makeNumber(7);
+  const a = 4;
+  const b = 7;
 
   expect(contents(add(a, b))).toEqual(11);
   expect(contents(sub(a, b))).toEqual(-3);

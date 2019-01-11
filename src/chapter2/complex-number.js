@@ -74,19 +74,22 @@ export function complexDiv(x, y) {
 }
 
 export function attachType(type, contents) {
+  if (type === 'number') {
+    return contents;
+  }
   return cons(type, contents);
 }
 
 export function type(datum) {
   if (isAtom(datum)) {
-    throw new Error(`Bad typed datum -- TYPE: ${datum}`);
+    return typeof datum;
   }
   return car(datum);
 }
 
 export function contents(datum) {
   if (isAtom(datum)) {
-    throw new Error(`Bad typed datum -- CONTENTS: ${datum}`);
+    return datum;
   }
   return cdr(datum);
 }
