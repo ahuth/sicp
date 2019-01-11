@@ -2,8 +2,6 @@ import {
   attachType,
   type,
   contents,
-  makeRectangular,
-  makePolar,
   complexAdd,
   complexSub,
   complexMul,
