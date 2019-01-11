@@ -1,4 +1,14 @@
-import { attachType, type, contents } from './complex-number';
+import {
+  attachType,
+  type,
+  contents,
+  makeRectangular,
+  makePolar,
+  complexAdd,
+  complexSub,
+  complexMul,
+  complexDiv,
+} from './complex-number';
 
 export function add(x, y) {
   return operate('add', x, y);
@@ -68,3 +78,28 @@ function operate(op, arg1, arg2) {
 
   return proc(contents(arg1), contents(arg2));
 }
+
+function addComplex(x, y) {
+  return makeComplex(complexAdd(x, y));
+}
+
+function subComplex(x, y) {
+  return makeComplex(complexSub(x, y));
+}
+
+function mulComplex(x, y) {
+  return makeComplex(complexMul(x, y));
+}
+
+function divComplex(x, y) {
+  return makeComplex(complexDiv(x, y));
+}
+
+export function makeComplex(n) {
+  return attachType('complex', n);
+}
+
+put('complex', 'add', addComplex);
+put('complex', 'sub', subComplex);
+put('complex', 'mul', mulComplex);
+put('complex', 'div', divComplex);
