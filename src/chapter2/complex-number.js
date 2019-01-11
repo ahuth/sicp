@@ -73,18 +73,18 @@ export function complexDiv(x, y) {
   );
 }
 
-function attachType(type, contents) {
+export function attachType(type, contents) {
   return cons(type, contents);
 }
 
-function type(datum) {
+export function type(datum) {
   if (isAtom(datum)) {
     throw new Error(`Bad typed datum -- TYPE: ${datum}`);
   }
   return car(datum);
 }
 
-function contents(datum) {
+export function contents(datum) {
   if (isAtom(datum)) {
     throw new Error(`Bad typed datum -- CONTENTS: ${datum}`);
   }
