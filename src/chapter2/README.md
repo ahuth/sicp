@@ -148,3 +148,74 @@ For example, pictures can be implemented in terms of lines and rectangles, which
 Also ties nicely in to [Ousterhout's A Philosophy of Software Design](https://www.amazon.com/Philosophy-Software-Design-John-Ousterhout/dp/1732102201). Reading that book was the first time I've really thought about how different levels of abstraction tie in together.
 
 It's all too common in software to split out submodules that don't really provide a layer of abstraction, and are really just shifting code or tasks into another file. See it with "service objects" in Rails apps all the time.
+
+## Manifest types, Data-directed programming, and Message passing
+
+Something amazing happened when working through the complex number examples. In this super-minimal, super-functional programming language (scheme), we worked through different kinds of implementations, and how to make generic methods that don't depend on the implementation. And somehow ended up with "message passing", which looks an awful lot like duck-typing in Ruby.
+
+First, we started with different functions for different implementations.
+
+```js
+function makeRectangular(r, i) { ... }
+function makePolar(r, a) { ... }
+
+function realPartRectangular(z) { ... }
+function realPartPolar(z) { ... }
+
+function imaginaryPartRectangular(z) { ... }
+function imaginaryPartPolar(z) { ... }
+```
+
+Second, we attached "types" and had generic selectors that called the right function for each type.
+
+```js
+function realPart(z) {
+  if (isRectangular(z)) {
+    return realPartRectangular(z);
+  }
+  return realPartPolar(z);
+}
+```
+
+Third, we made the generic selectors even more generic, and added the ability to add more "types" without adding to any conditionals.
+
+```js
+function realPart(z) {
+  const op = opTable(type(z));
+
+  return op(content(z));
+}
+
+register('rectangular', 'realPart', realPartRectangular);
+register('polar', 'realPart', realPartPolar);
+```
+
+While this is cool, it feels like a lot. It really blew my mind when we then changed directions and implemented a "message passing" variant.
+
+```js
+function makeRectangular(r, i) {
+  return function (message) {
+    if (message === 'realPart') {
+      return r;
+    } else if (message === 'imagPart') {
+      return i;
+    }
+  }
+}
+
+functon makePolar(r, a) {
+  return function (message) {
+    if (message === 'realPart') {
+      return // Math
+    } else if (message === 'imagPart') {
+      return // More math
+    }
+  }
+}
+```
+
+This removes the need for a lot of selectors and groups the operations for a given "type" together. And this looks an awful lot like a "class" in our favorite OO languages like Ruby.
+
+Ruby even likes to call method calling "message passing".
+
+And it's not a stretch to call the above duck-typing. Pass in any object that can respond to the right "messages" and it'll just work.
