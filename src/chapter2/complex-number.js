@@ -9,40 +9,40 @@ export function makePolar(r, a) {
   return attachType('polar', cons(r, a));
 }
 
+const opTable = {};
+
+function put(name, op, item) {
+  opTable[name] = opTable[name] || {};
+  opTable[name][op] = item;
+}
+
+function get(name, op) {
+  return opTable[name] && opTable[name][op];
+}
+
+function operate(op, obj) {
+  const proc = get(type(obj), op);
+  if (proc) {
+    return proc(contents(obj));
+  } else {
+    throw new Error(`Operator undefined for this type -- OPERATE ${toString(list(op, obj))}`);
+  }
+}
+
 export function realPart(z) {
-  if (isRectangular(z)) {
-    return realPartRectangular(contents(z));
-  }
-  if (isPolar(z)) {
-    return realPartPolar(contents(z));
-  }
+  return operate('realPart', z);
 }
 
 export function imagPart(z) {
-  if (isRectangular(z)) {
-    return imagPartRectangular(contents(z));
-  }
-  if (isPolar(z)) {
-    return imagPartPolar(contents(z));
-  }
+  return operate('imagPart', z);
 }
 
 export function magnitude(z) {
-  if (isRectangular(z)) {
-    return magnitudeRectangular(contents(z));
-  }
-  if (isPolar(z)) {
-    return magnitudePolar(contents(z));
-  }
+  return operate('magnitude', z);
 }
 
 export function angle(z) {
-  if (isRectangular(z)) {
-    return angleRectangular(contents(z));
-  }
-  if (isPolar(z)) {
-    return anglePolar(contents(z));
-  }
+  return operate('angle', z);
 }
 
 export function complexAdd(x, y) {
@@ -91,13 +91,15 @@ function contents(datum) {
   return cdr(datum);
 }
 
-function isRectangular(z) {
-  return type(z) === 'rectangular';
-}
+put('rectangular', 'realPart', realPartRectangular);
+put('rectangular', 'imagPart', imagPartRectangular);
+put('rectangular', 'magnitude', magnitudeRectangular);
+put('rectangular', 'angle', angleRectangular);
 
-function isPolar(z) {
-  return type(z) === 'polar';
-}
+put('polar', 'realPart', realPartPolar);
+put('polar', 'imagPart', imagPartPolar);
+put('polar', 'magnitude', magnitudePolar);
+put('polar', 'angle', anglePolar);
 
 function realPartRectangular(z) {
   return car(z);
