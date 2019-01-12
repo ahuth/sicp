@@ -58,6 +58,10 @@ export function complexEqu(x, y) {
   return realPart(x) === realPart(y) && imagPart(x) === imagPart(y);
 }
 
+export function complexZero(z) {
+  return realPart(z) === 0 && imagPart(z) === 0;
+}
+
 put('rectangular', 'realPart', realPartRectangular);
 put('rectangular', 'imagPart', imagPartRectangular);
 put('rectangular', 'magnitude', magnitudeRectangular);

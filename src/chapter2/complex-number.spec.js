@@ -10,6 +10,7 @@ import {
   complexMul,
   complexDiv,
   complexEqu,
+  complexZero,
 } from './complex-number';
 
 test('complex numbers', () => {
@@ -53,4 +54,14 @@ test('equality', () => {
     makeRectangular(1, 2),
     makeRectangular(2, 3),
   )).toEqual(false);
+});
+
+test('zero', () => {
+  expect(complexZero(makeRectangular(0, 0))).toEqual(true);
+  expect(complexZero(makePolar(0, 0))).toEqual(true);
+  expect(complexZero(makePolar(0, 1))).toEqual(true);
+
+  expect(complexZero(makeRectangular(0, 1))).toEqual(false);
+  expect(complexZero(makeRectangular(2, 1))).toEqual(false);
+  expect(complexZero(makePolar(2, 1))).toEqual(false);
 });

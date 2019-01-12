@@ -1,6 +1,6 @@
 import { contents } from './data-directed-utils';
 import { makeRectangular, realPart, imagPart } from './complex-number';
-import { add, sub, mul, div, equ, makeComplex, makeRational } from './generic-arithmetic-operators';
+import { add, sub, mul, div, equ, zero, makeComplex, makeRational } from './generic-arithmetic-operators';
 import { makeRat, printRat } from './rational-number';
 
 test('numbers', () => {
@@ -58,4 +58,17 @@ test('rational numbers', () => {
 
   expect(equ(a, b)).toEqual(false);
   expect(equ(a, a)).toEqual(true);
+});
+
+test('zeros', () => {
+  expect(zero(0)).toEqual(true);
+  expect(zero(666)).toEqual(false);
+
+  expect(zero(makeRational(makeRat(0, 2)))).toEqual(true);
+  expect(zero(makeRational(makeRat(0, 5)))).toEqual(true);
+  expect(zero(makeRational(makeRat(1, 3)))).toEqual(false);
+
+  expect(zero(makeComplex(makeRectangular(0, 0)))).toEqual(true);
+  expect(zero(makeComplex(makeRectangular(0, 2)))).toEqual(false);
+  expect(zero(makeComplex(makeRectangular(3, 5)))).toEqual(false);
 });

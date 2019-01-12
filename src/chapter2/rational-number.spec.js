@@ -1,4 +1,13 @@
-import { makeRat, printRat, addRat, subRat, mulRat, divRat, equRat } from './rational-number';
+import {
+  makeRat,
+  printRat,
+  addRat,
+  subRat,
+  mulRat,
+  divRat,
+  equRat,
+  zeroRat,
+} from './rational-number';
 
 test('exercise 2.1', () => {
   const rat1 = makeRat(2, 3);
@@ -45,4 +54,14 @@ test('equality', () => {
     makeRat(1, 2),
     makeRat(1, 3),
   )).toEqual(false);
+});
+
+test('zero', () => {
+  expect(zeroRat(makeRat(0, 1))).toEqual(true);
+  expect(zeroRat(makeRat(0, 2))).toEqual(true);
+  expect(zeroRat(makeRat(0, 3))).toEqual(true);
+
+  expect(zeroRat(makeRat(1, 1))).toEqual(false);
+  expect(zeroRat(makeRat(1, 2))).toEqual(false);
+  expect(zeroRat(makeRat(1, 3))).toEqual(false);
 });

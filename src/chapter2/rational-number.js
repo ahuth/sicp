@@ -47,5 +47,9 @@ export function equRat(a, b) {
   return numer(a) === numer(b) && denom(a) === denom(b);
 }
 
+export function zeroRat(a) {
+  return numer(a) === 0;
+}
+
 const numer = car;
 const denom = cdr;
