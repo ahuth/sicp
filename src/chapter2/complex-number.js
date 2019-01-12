@@ -73,6 +73,10 @@ export function complexDiv(x, y) {
   );
 }
 
+export function complexEqu(x, y) {
+  return realPart(x) === realPart(y) && imagPart(x) === imagPart(y);
+}
+
 export function attachType(type, contents) {
   if (type === 'number') {
     return contents;

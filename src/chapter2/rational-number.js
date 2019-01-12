@@ -43,5 +43,9 @@ export function divRat(a, b) {
   );
 }
 
+export function equRat(a, b) {
+  return numer(a) === numer(b) && denom(a) === denom(b);
+}
+
 const numer = car;
 const denom = cdr;

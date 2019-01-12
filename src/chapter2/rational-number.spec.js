@@ -1,4 +1,4 @@
-import { makeRat, printRat, addRat, subRat, mulRat, divRat } from './rational-number';
+import { makeRat, printRat, addRat, subRat, mulRat, divRat, equRat } from './rational-number';
 
 test('exercise 2.1', () => {
   const rat1 = makeRat(2, 3);
@@ -28,4 +28,21 @@ test('dividing', () => {
   const a = makeRat(3, 4);
   const b = makeRat(1, 4);
   expect(printRat(divRat(a, b))).toEqual('3/1');
+});
+
+test('equality', () => {
+  expect(equRat(
+    makeRat(1, 2),
+    makeRat(1, 2),
+  )).toEqual(true);
+
+  expect(equRat(
+    makeRat(1, 2),
+    makeRat(2, 4),
+  )).toEqual(true);
+
+  expect(equRat(
+    makeRat(1, 2),
+    makeRat(1, 3),
+  )).toEqual(false);
 });

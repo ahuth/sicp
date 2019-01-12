@@ -1,5 +1,5 @@
 import { contents, makeRectangular, realPart, imagPart } from './complex-number';
-import { add, sub, mul, div, makeComplex, makeRational } from './generic-arithmetic-operators';
+import { add, sub, mul, div, equ, makeComplex, makeRational } from './generic-arithmetic-operators';
 import { makeRat, printRat } from './rational-number';
 
 test('numbers', () => {
@@ -10,6 +10,9 @@ test('numbers', () => {
   expect(contents(sub(a, b))).toEqual(-3);
   expect(contents(mul(a, b))).toEqual(28);
   expect(contents(div(a, b))).toBeCloseTo(0.57);
+
+  expect(equ(a, b)).toEqual(false);
+  expect(equ(a, a)).toEqual(true);
 });
 
 test('complex numbers', () => {
@@ -31,6 +34,9 @@ test('complex numbers', () => {
   const divided = contents(div(a, b));
   expect(realPart(divided)).toBeCloseTo(2.2);
   expect(imagPart(divided)).toBeCloseTo(-1.4);
+
+  expect(equ(a, b)).toEqual(false);
+  expect(equ(a, a)).toEqual(true);
 });
 
 test('rational numbers', () => {
@@ -48,4 +54,7 @@ test('rational numbers', () => {
 
   const divided = contents(div(a, b));
   expect(printRat(divided)).toEqual('8/9');
+
+  expect(equ(a, b)).toEqual(false);
+  expect(equ(a, a)).toEqual(true);
 });

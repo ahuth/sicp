@@ -9,6 +9,7 @@ import {
   complexSub,
   complexMul,
   complexDiv,
+  complexEqu,
 } from './complex-number';
 
 test('complex numbers', () => {
@@ -40,4 +41,16 @@ test('complex numbers', () => {
   const divided = complexDiv(a, b);
   expect(realPart(divided)).toBeCloseTo(0.59);
   expect(imagPart(divided)).toBeCloseTo(0.12);
+});
+
+test('equality', () => {
+  expect(complexEqu(
+    makeRectangular(1, 2),
+    makeRectangular(1, 2),
+  )).toEqual(true);
+
+  expect(complexEqu(
+    makeRectangular(1, 2),
+    makeRectangular(2, 3),
+  )).toEqual(false);
 });
