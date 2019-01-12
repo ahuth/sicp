@@ -22,5 +22,26 @@ export function addRat(a, b) {
   );
 }
 
+export function subRat(a, b) {
+  return makeRat(
+    (numer(a) * denom(b)) - (denom(a) * (numer(b))),
+    (denom(a) * denom(b)),
+  );
+}
+
+export function mulRat(a, b) {
+  return makeRat(
+    numer(a) * numer(b),
+    denom(a) * denom(b),
+  );
+}
+
+export function divRat(a, b) {
+  return makeRat(
+    numer(a) * denom(b),
+    denom(a) * numer(b),
+  );
+}
+
 const numer = car;
 const denom = cdr;

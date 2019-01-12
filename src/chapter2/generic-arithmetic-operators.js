@@ -8,20 +8,22 @@ import {
   complexDiv,
 } from './complex-number';
 
+import { addRat, subRat, mulRat, divRat } from './rational-number';
+
 export function add(x, y) {
-  return operate('add', x, y);
+  return operate2('add', x, y);
 }
 
 export function sub(x, y) {
-  return operate('sub', x, y);
+  return operate2('sub', x, y);
 }
 
 export function mul(x, y) {
-  return operate('mul', x, y);
+  return operate2('mul', x, y);
 }
 
 export function div(x, y) {
-  return operate('div', x, y);
+  return operate2('div', x, y);
 }
 
 const opTable = {};
@@ -33,6 +35,23 @@ function put(name, op, item) {
 
 function get(name, op) {
   return opTable[name] && opTable[name][op];
+}
+
+function operate2(op, arg1, arg2) {
+  const t1 = type(arg1);
+  const t2 = type(arg2);
+
+  if (t1 !== t2) {
+    throw new Error('Operands not of same type');
+  }
+
+  const proc = get(t1, op);
+
+  if (!proc) {
+    throw new Error('Operator not defined for type');
+  }
+
+  return proc(contents(arg1), contents(arg2));
 }
 
 function addNumber(x, y) {
@@ -60,23 +79,6 @@ put('number', 'sub', subNumber);
 put('number', 'mul', mulNumber);
 put('number', 'div', divNumber);
 
-function operate(op, arg1, arg2) {
-  const t1 = type(arg1);
-  const t2 = type(arg2);
-
-  if (t1 !== t2) {
-    throw new Error('Operands not of same type');
-  }
-
-  const proc = get(t1, op);
-
-  if (!proc) {
-    throw new Error('Operator not defined for type');
-  }
-
-  return proc(contents(arg1), contents(arg2));
-}
-
 function addComplex(x, y) {
   return makeComplex(complexAdd(x, y));
 }
@@ -101,3 +103,28 @@ put('complex', 'add', addComplex);
 put('complex', 'sub', subComplex);
 put('complex', 'mul', mulComplex);
 put('complex', 'div', divComplex);
+
+function addRational(x, y) {
+  return makeRational(addRat(x, y));
+}
+
+function subRational(x, y) {
+  return makeRational(subRat(x, y));
+}
+
+function mulRational(x, y) {
+  return makeRational(mulRat(x, y));
+}
+
+function divRational(x, y) {
+  return makeRational(divRat(x, y));
+}
+
+export function makeRational(n) {
+  return attachType('rational', n);
+}
+
+put('rational', 'add', addRational);
+put('rational', 'sub', subRational);
+put('rational', 'mul', mulRational);
+put('rational', 'div', divRational);
