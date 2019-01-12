@@ -9,6 +9,8 @@ import {
 import { addRat, subRat, mulRat, divRat, equRat } from './rational-number';
 import { attachType, operate2, put } from './data-directed-utils';
 
+// Generic operations
+
 export function add(x, y) {
   return operate2('add', x, y);
 }
@@ -28,6 +30,8 @@ export function div(x, y) {
 export function equ(x, y) {
   return operate2('equ', x, y);
 }
+
+// Integer numbers
 
 function addNumber(x, y) {
   return makeNumber(x + y);
@@ -59,6 +63,8 @@ put('number', 'mul', mulNumber);
 put('number', 'div', divNumber);
 put('number', 'equ', equNumber);
 
+// Complex numbers
+
 function addComplex(x, y) {
   return makeComplex(complexAdd(x, y));
 }
@@ -88,6 +94,8 @@ put('complex', 'sub', subComplex);
 put('complex', 'mul', mulComplex);
 put('complex', 'div', divComplex);
 put('complex', 'equ', equComplex);
+
+// Rational numbers
 
 function addRational(x, y) {
   return makeRational(addRat(x, y));
