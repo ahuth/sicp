@@ -1,4 +1,5 @@
-import { contents, makeRectangular, realPart, imagPart } from './complex-number';
+import { contents } from './data-directed-utils';
+import { makeRectangular, realPart, imagPart } from './complex-number';
 import { add, sub, mul, div, equ, makeComplex, makeRational } from './generic-arithmetic-operators';
 import { makeRat, printRat } from './rational-number';
 

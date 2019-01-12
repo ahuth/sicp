@@ -1,7 +1,4 @@
 import {
-  attachType,
-  type,
-  contents,
   complexAdd,
   complexSub,
   complexMul,
@@ -10,6 +7,7 @@ import {
 } from './complex-number';
 
 import { addRat, subRat, mulRat, divRat, equRat } from './rational-number';
+import { attachType, operate2, put } from './data-directed-utils';
 
 export function add(x, y) {
   return operate2('add', x, y);
@@ -29,34 +27,6 @@ export function div(x, y) {
 
 export function equ(x, y) {
   return operate2('equ', x, y);
-}
-
-const opTable = {};
-
-function put(name, op, item) {
-  opTable[name] = opTable[name] || {};
-  opTable[name][op] = item;
-}
-
-function get(name, op) {
-  return opTable[name] && opTable[name][op];
-}
-
-function operate2(op, arg1, arg2) {
-  const t1 = type(arg1);
-  const t2 = type(arg2);
-
-  if (t1 !== t2) {
-    throw new Error('Operands not of same type');
-  }
-
-  const proc = get(t1, op);
-
-  if (!proc) {
-    throw new Error('Operator not defined for type');
-  }
-
-  return proc(contents(arg1), contents(arg2));
 }
 
 function addNumber(x, y) {

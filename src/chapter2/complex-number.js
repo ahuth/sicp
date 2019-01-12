@@ -1,4 +1,5 @@
-import { cons, car, cdr, isAtom } from './pair';
+import { cons, car, cdr } from './pair';
+import { operate, put, attachType } from './data-directed-utils';
 import { square, sqrt } from '../chapter1';
 
 export function makeRectangular(r, i) {
@@ -7,26 +8,6 @@ export function makeRectangular(r, i) {
 
 export function makePolar(r, a) {
   return attachType('polar', cons(r, a));
-}
-
-const opTable = {};
-
-function put(name, op, item) {
-  opTable[name] = opTable[name] || {};
-  opTable[name][op] = item;
-}
-
-function get(name, op) {
-  return opTable[name] && opTable[name][op];
-}
-
-function operate(op, obj) {
-  const proc = get(type(obj), op);
-  if (proc) {
-    return proc(contents(obj));
-  } else {
-    throw new Error(`Operator undefined for this type -- OPERATE ${toString(list(op, obj))}`);
-  }
 }
 
 export function realPart(z) {
@@ -75,27 +56,6 @@ export function complexDiv(x, y) {
 
 export function complexEqu(x, y) {
   return realPart(x) === realPart(y) && imagPart(x) === imagPart(y);
-}
-
-export function attachType(type, contents) {
-  if (type === 'number') {
-    return contents;
-  }
-  return cons(type, contents);
-}
-
-export function type(datum) {
-  if (isAtom(datum)) {
-    return typeof datum;
-  }
-  return car(datum);
-}
-
-export function contents(datum) {
-  if (isAtom(datum)) {
-    return datum;
-  }
-  return cdr(datum);
 }
 
 put('rectangular', 'realPart', realPartRectangular);
