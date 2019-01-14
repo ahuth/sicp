@@ -9,7 +9,7 @@ import {
 } from './complex-number';
 
 import { addRat, subRat, mulRat, divRat, equRat, zeroRat, makeRat, numer, denom } from './rational-number';
-import { attachType, contents, operate2, put, operate } from './data-directed-utils';
+import { attachType, operate2, put, operate } from './data-directed-utils';
 
 // Generic operations
 
