@@ -1,6 +1,6 @@
 import { contents, type } from './data-directed-utils';
 import { makeRectangular, realPart, imagPart } from './complex-number';
-import { add, sub, mul, div, equ, zero, makeComplex, makeRational } from './generic-arithmetic-operators';
+import { add, sub, mul, div, equ, zero, tagComplex, tagRational } from './generic-arithmetic-operators';
 import { makeRat, printRat } from './rational-number';
 
 test('numbers', () => {
@@ -17,8 +17,8 @@ test('numbers', () => {
 });
 
 test('complex numbers', () => {
-  const a = makeComplex(makeRectangular(5, 3));
-  const b = makeComplex(makeRectangular(1, 2));
+  const a = tagComplex(makeRectangular(5, 3));
+  const b = tagComplex(makeRectangular(1, 2));
 
   const added = contents(add(a, b));
   expect(realPart(added)).toBeCloseTo(6);
@@ -41,8 +41,8 @@ test('complex numbers', () => {
 });
 
 test('rational numbers', () => {
-  const a = makeRational(makeRat(2, 3));
-  const b = makeRational(makeRat(3, 4));
+  const a = tagRational(makeRat(2, 3));
+  const b = tagRational(makeRat(3, 4));
 
   const added = contents(add(a, b));
   expect(printRat(added)).toEqual('17/12');
@@ -64,24 +64,24 @@ test('zeros', () => {
   expect(zero(0)).toEqual(true);
   expect(zero(666)).toEqual(false);
 
-  expect(zero(makeRational(makeRat(0, 2)))).toEqual(true);
-  expect(zero(makeRational(makeRat(0, 5)))).toEqual(true);
-  expect(zero(makeRational(makeRat(1, 3)))).toEqual(false);
+  expect(zero(tagRational(makeRat(0, 2)))).toEqual(true);
+  expect(zero(tagRational(makeRat(0, 5)))).toEqual(true);
+  expect(zero(tagRational(makeRat(1, 3)))).toEqual(false);
 
-  expect(zero(makeComplex(makeRectangular(0, 0)))).toEqual(true);
-  expect(zero(makeComplex(makeRectangular(0, 2)))).toEqual(false);
-  expect(zero(makeComplex(makeRectangular(3, 5)))).toEqual(false);
+  expect(zero(tagComplex(makeRectangular(0, 0)))).toEqual(true);
+  expect(zero(tagComplex(makeRectangular(0, 2)))).toEqual(false);
+  expect(zero(tagComplex(makeRectangular(3, 5)))).toEqual(false);
 });
 
 test('coercion', () => {
   const number = 6;
-  const rational = makeRational(makeRat(2, 5));
+  const rational = tagRational(makeRat(2, 5));
 
   let result = add(number, rational);
   expect(type(result)).toEqual('rational');
   expect(printRat(contents(result))).toEqual('32/5');
 
-  const complex = makeComplex(makeRectangular(3, 4));
+  const complex = tagComplex(makeRectangular(3, 4));
   result = sub(complex, result);
   expect(type(result)).toEqual('complex');
   expect(realPart(contents(result))).toBeCloseTo(-3.40);

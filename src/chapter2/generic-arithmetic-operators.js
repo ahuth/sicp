@@ -44,19 +44,19 @@ export function raise(z) {
 // Integer numbers
 
 function addNumber(x, y) {
-  return makeNumber(x + y);
+  return tagNumber(x + y);
 }
 
 function subNumber(x, y) {
-  return makeNumber(x - y);
+  return tagNumber(x - y);
 }
 
 function mulNumber(x, y) {
-  return makeNumber(x * y);
+  return tagNumber(x * y);
 }
 
 function divNumber(x, y) {
-  return makeNumber(x / y);
+  return tagNumber(x / y);
 }
 
 function equNumber(x, y) {
@@ -68,10 +68,10 @@ function zeroNumber(z) {
 }
 
 function raiseNumber(z) {
-  return makeRational(makeRat(z, 1));
+  return tagRational(makeRat(z, 1));
 }
 
-export function makeNumber(n) {
+export function tagNumber(n) {
   return attachType('number', n);
 }
 
@@ -86,19 +86,19 @@ put('number', 'raise', raiseNumber);
 // Complex numbers
 
 function addComplex(x, y) {
-  return makeComplex(complexAdd(x, y));
+  return tagComplex(complexAdd(x, y));
 }
 
 function subComplex(x, y) {
-  return makeComplex(complexSub(x, y));
+  return tagComplex(complexSub(x, y));
 }
 
 function mulComplex(x, y) {
-  return makeComplex(complexMul(x, y));
+  return tagComplex(complexMul(x, y));
 }
 
 function divComplex(x, y) {
-  return makeComplex(complexDiv(x, y));
+  return tagComplex(complexDiv(x, y));
 }
 
 function equComplex(x, y) {
@@ -109,7 +109,7 @@ function zeroComplex(z) {
   return complexZero(z);
 }
 
-export function makeComplex(n) {
+export function tagComplex(n) {
   return attachType('complex', n);
 }
 
@@ -123,19 +123,19 @@ put('complex', 'zero', zeroComplex);
 // Rational numbers
 
 function addRational(x, y) {
-  return makeRational(addRat(x, y));
+  return tagRational(addRat(x, y));
 }
 
 function subRational(x, y) {
-  return makeRational(subRat(x, y));
+  return tagRational(subRat(x, y));
 }
 
 function mulRational(x, y) {
-  return makeRational(mulRat(x, y));
+  return tagRational(mulRat(x, y));
 }
 
 function divRational(x, y) {
-  return makeRational(divRat(x, y));
+  return tagRational(divRat(x, y));
 }
 
 function equRational(x, y) {
@@ -147,10 +147,10 @@ function zeroRational(z) {
 }
 
 function raiseRational(z) {
-  return makeComplex(makeRectangular(numer(z) / denom(z), 0));
+  return tagComplex(makeRectangular(numer(z) / denom(z), 0));
 }
 
-export function makeRational(n) {
+export function tagRational(n) {
   return attachType('rational', n);
 }
 
