@@ -72,7 +72,7 @@ function raiseNumber(z) {
 }
 
 export function tagNumber(n) {
-  return attachType('number', n);
+  return n;
 }
 
 put('number', 'add', addNumber);
