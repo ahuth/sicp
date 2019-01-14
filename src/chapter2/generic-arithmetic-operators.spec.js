@@ -1,4 +1,4 @@
-import { contents } from './data-directed-utils';
+import { contents, type } from './data-directed-utils';
 import { makeRectangular, realPart, imagPart } from './complex-number';
 import { add, sub, mul, div, equ, zero, makeComplex, makeRational } from './generic-arithmetic-operators';
 import { makeRat, printRat } from './rational-number';
@@ -71,4 +71,19 @@ test('zeros', () => {
   expect(zero(makeComplex(makeRectangular(0, 0)))).toEqual(true);
   expect(zero(makeComplex(makeRectangular(0, 2)))).toEqual(false);
   expect(zero(makeComplex(makeRectangular(3, 5)))).toEqual(false);
+});
+
+test('coercion', () => {
+  const number = 6;
+  const rational = makeRational(makeRat(2, 5));
+
+  let result = add(number, rational);
+  expect(type(result)).toEqual('rational');
+  expect(printRat(contents(result))).toEqual('32/5');
+
+  const complex = makeComplex(makeRectangular(3, 4));
+  result = sub(complex, result);
+  expect(type(result)).toEqual('complex');
+  expect(realPart(contents(result))).toBeCloseTo(-3.40);
+  expect(imagPart(contents(result))).toBeCloseTo(4);
 });

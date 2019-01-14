@@ -5,10 +5,11 @@ import {
   complexDiv,
   complexEqu,
   complexZero,
+  makeRectangular,
 } from './complex-number';
 
-import { addRat, subRat, mulRat, divRat, equRat, zeroRat } from './rational-number';
-import { attachType, operate2, put, operate } from './data-directed-utils';
+import { addRat, subRat, mulRat, divRat, equRat, zeroRat, makeRat, numer, denom } from './rational-number';
+import { attachType, contents, operate2, put, operate } from './data-directed-utils';
 
 // Generic operations
 
@@ -34,6 +35,10 @@ export function equ(x, y) {
 
 export function zero(z) {
   return operate('zero', z);
+}
+
+export function raise(z) {
+  return operate('raise', z);
 }
 
 // Integer numbers
@@ -62,6 +67,10 @@ function zeroNumber(z) {
   return z === 0;
 }
 
+function raiseNumber(z) {
+  return makeRational(makeRat(z, 1));
+}
+
 export function makeNumber(n) {
   return attachType('number', n);
 }
@@ -72,6 +81,7 @@ put('number', 'mul', mulNumber);
 put('number', 'div', divNumber);
 put('number', 'equ', equNumber);
 put('number', 'zero', zeroNumber);
+put('number', 'raise', raiseNumber);
 
 // Complex numbers
 
@@ -136,6 +146,10 @@ function zeroRational(z) {
   return zeroRat(z);
 }
 
+function raiseRational(z) {
+  return makeComplex(makeRectangular(numer(z) / denom(z), 0));
+}
+
 export function makeRational(n) {
   return attachType('rational', n);
 }
@@ -146,3 +160,4 @@ put('rational', 'mul', mulRational);
 put('rational', 'div', divRational);
 put('rational', 'equ', equRational);
 put('rational', 'zero', zeroRational);
+put('rational', 'raise', raiseRational);

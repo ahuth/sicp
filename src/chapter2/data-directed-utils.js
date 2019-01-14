@@ -2,6 +2,8 @@ import { cons, car, cdr, isAtom } from './pair';
 
 const opTable = {};
 
+const types = ['number', 'rational', 'complex'];
+
 export function put(name, op, item) {
   opTable[name] = opTable[name] || {};
   opTable[name][op] = item;
@@ -25,7 +27,14 @@ export function operate2(op, arg1, arg2) {
   const t2 = type(arg2);
 
   if (t1 !== t2) {
-    throw new Error('Operands not of same type');
+    const i1 = types.indexOf(t1);
+    const i2 = types.indexOf(t2);
+
+    if (i1 < i2) {
+      return operate2(op, operate('raise', arg1), arg2);
+    } else {
+      return operate2(op, arg1, operate('raise', arg2));
+    }
   }
 
   const proc = get(t1, op);

@@ -1,6 +1,9 @@
 import { cons, car, cdr } from './pair';
 import { gcd } from '../chapter1';
 
+export const numer = car;
+export const denom = cdr;
+
 export function makeRat(n, d) {
   const flipSigns = n < 0 || d < 0;
   const greatestCommon = gcd(n, d);
@@ -50,6 +53,3 @@ export function equRat(a, b) {
 export function zeroRat(a) {
   return numer(a) === 0;
 }
-
-const numer = car;
-const denom = cdr;
