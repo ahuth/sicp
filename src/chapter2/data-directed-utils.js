@@ -18,7 +18,7 @@ export function operate(op, arg) {
   if (proc) {
     return proc(contents(arg));
   } else {
-    throw new Error('Operator undefined for type');
+    throw new Error(`Operator undefined for type: ${type(arg)}/${op}`);
   }
 }
 
@@ -40,7 +40,7 @@ export function operate2(op, arg1, arg2) {
   const proc = get(t1, op);
 
   if (!proc) {
-    throw new Error('Operator not defined for type');
+    throw new Error(`Operator not defined for type: ${t1}/${op}`);
   }
 
   return proc(contents(arg1), contents(arg2));
