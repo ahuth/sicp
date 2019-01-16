@@ -12,6 +12,7 @@ import {
   deepReverse,
   fringe,
   equal,
+  every,
 } from './list';
 
 test('lists', () => {
@@ -124,4 +125,10 @@ test('exercise 2.29', () => {
     list('this', 'is', 'a', 'list'),
     list('this', 'is', 'no', 'list'),
   )).toEqual(false);
+});
+
+test('every', () => {
+  const l = list(2, 4, 6, 8);
+  expect(every(l, n => n % 2 === 0)).toEqual(true);
+  expect(every(l, n => n < 5)).toEqual(false);
 });

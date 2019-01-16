@@ -56,6 +56,16 @@ export function mapCar(l, f, acc = EMPTY_LIST) {
   );
 }
 
+export function every(l, predicate) {
+  if (isEmpty(l)) { return true; }
+
+  const head = car(l);
+  const tail = cdr(l);
+
+  if (!predicate(head)) { return false; }
+  return every(tail, predicate);
+}
+
 export function append(a, b) {
   function iter(acc, x) {
     if (isEmpty(x)) { return acc; }
