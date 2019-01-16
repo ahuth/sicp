@@ -90,7 +90,7 @@ function mulTermByAllTerms(t1, L) {
       getOrder(t1) + getOrder(t2), // add(getOrder(t1), getOrder(t2)); ???
       mul(getCoeff(t1), getCoeff(t2)),
     ),
-    mulTermByAllTerms(t1, getRestTerms(t2)),
+    mulTermByAllTerms(t1, getRestTerms(L)),
   );
 }
 
