@@ -16,7 +16,12 @@ export const getTermList = cdr;
 
 function addPoly(p1, p2) {
   if (sameVariable(getVariable(p1), getVariable(p2))) {
-    return makePolynomial(getVariable(p1), addTerms(getTermList(p1), getTermList(p2)));
+    return tagPolynomial(
+      makePolynomial(
+        getVariable(p1),
+        addTerms(getTermList(p1), getTermList(p2)),
+      ),
+    );
   } else {
     throw new Error('Polys not in same var -- addPoly');
   }
@@ -24,7 +29,12 @@ function addPoly(p1, p2) {
 
 function mulPoly(p1, p2) {
   if (sameVariable(getVariable(p1), getVariable(p2))) {
-    return makePolynomial(getVariable(p1), mulTerms(getTermList(p1), getTermList(p2)));
+    return tagPolynomial(
+      makePolynomial(
+        getVariable(p1),
+        mulTerms(getTermList(p1), getTermList(p2)),
+      ),
+    );
   } else {
     throw new Error('Polys not in same var -- mulPoly');
   }
