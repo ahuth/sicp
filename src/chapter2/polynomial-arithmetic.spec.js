@@ -1,8 +1,9 @@
 import { add, mul } from './generic-arithmetic-operators';
-import { list } from './list';
-import { makePolynomial } from './polynomial-arithmetic';
+import { list, toString } from './list';
+import { makePolynomial, makeTerm, tagPolynomial } from './polynomial-arithmetic';
 
 test('adding', () => {
-  const p1 = makePolynomial('x', list(2, 1));
-  add(p1, p1);
+  const p1 = tagPolynomial(makePolynomial('x', list(makeTerm(2, 1)))); // 1 * x^2
+  const added = add(p1, p1); // x^2 + x^2
+  expect(toString(added)).toEqual('(x (2 2))');  // 2 * x^2
 });

@@ -4,7 +4,11 @@ import { cons, car, cdr, isAtom, cadr } from './pair';
 import { list, every, isEmpty } from './list';
 
 export function makePolynomial(variable, termList) {
-  return attachType('polynomial', cons(variable, termList));
+  return cons(variable, termList);
+}
+
+export function tagPolynomial(p) {
+  return attachType('polynomial', p);
 }
 
 export const getVariable = car;
@@ -113,7 +117,7 @@ function isEmptyTermList(termList) {
   return isEmpty(termList);
 }
 
-function makeTerm(order, coeff) {
+export function makeTerm(order, coeff) {
   return list(order, coeff);
 }
 
