@@ -1,7 +1,7 @@
-import { add, mul, zero } from './generic-arithmetic-operators';
+import { add, sub, mul, zero } from './generic-arithmetic-operators';
 import { attachType, put } from './data-directed-utils';
 import { cons, car, cdr, isAtom, cadr } from './pair';
-import { list, every, isEmpty } from './list';
+import { list, every, isEmpty, mapCar } from './list';
 
 export function makePolynomial(variable, termList) {
   return cons(variable, termList);
@@ -27,6 +27,22 @@ function addPoly(p1, p2) {
   }
 }
 
+function subPoly(p1, p2) {
+  if (sameVariable(getVariable(p1), getVariable(p2))) {
+    return tagPolynomial(
+      makePolynomial(
+        getVariable(p1),
+        addTerms(
+          getTermList(p1),
+          flipSigns(getTermList(p2)),
+        ),
+      ),
+    );
+  } else {
+    throw new Error('Polys not in same var -- addPoly');
+  }
+}
+
 function mulPoly(p1, p2) {
   if (sameVariable(getVariable(p1), getVariable(p2))) {
     return tagPolynomial(
@@ -45,6 +61,7 @@ function zeroPoly(p) {
 }
 
 put('polynomial', 'add', addPoly);
+put('polynomial', 'sub', subPoly);
 put('polynomial', 'mul', mulPoly);
 put('polynomial', 'zero', zeroPoly);
 
@@ -137,4 +154,10 @@ function getOrder(term) {
 
 function getCoeff(term) {
   return cadr(term);
+}
+
+function flipSigns(termList) {
+  return mapCar(termList, (term) => {
+    return makeTerm(getOrder(term), -1 * getCoeff(term));
+  });
 }
