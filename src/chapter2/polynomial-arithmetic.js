@@ -39,7 +39,7 @@ function subPoly(p1, p2) {
       ),
     );
   } else {
-    throw new Error('Polys not in same var -- addPoly');
+    throw new Error('Polys not in same var -- subPoly');
   }
 }
 
