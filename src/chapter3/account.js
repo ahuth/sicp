@@ -1,4 +1,4 @@
-export default function makeAccount(balance) {
+export default function makeAccount(balance, password) {
   function withdraw(amount) {
     if (balance < amount) {
       throw new Error('Insufficient funds');
@@ -12,7 +12,11 @@ export default function makeAccount(balance) {
     return balance;
   }
 
-  return function (message) {
+  return function (message, passwordTry) {
+    if (passwordTry !== password) {
+      throw new Error('Incorrect password');
+    }
+
     switch (message) {
       case 'withdraw':
         return withdraw;
