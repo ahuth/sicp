@@ -1,4 +1,5 @@
 import monteCarlo from './monte-carlo';
+import randomInt from './random-int';
 import { gcd, sqrt } from '../chapter1';
 
 function estimatePi(trials) {
@@ -7,10 +8,6 @@ function estimatePi(trials) {
 
 function cesaroTest() {
   return gcd(randomInt(1000), randomInt(1000)) === 1;
-}
-
-function randomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
 }
 
 test('estimating pi', () => {
