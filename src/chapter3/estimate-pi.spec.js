@@ -11,5 +11,5 @@ function cesaroTest() {
 }
 
 test('estimating pi', () => {
-  expect(estimatePi(1000)).toBeCloseTo(3.1, 1);
+  expect(estimatePi(1000)).toBeCloseTo(3.14, 0);
 });
