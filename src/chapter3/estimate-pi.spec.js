@@ -7,7 +7,7 @@ function estimatePi(trials) {
 }
 
 function cesaroTest() {
-  return gcd(randomInt(1000), randomInt(1000)) === 1;
+  return gcd(randomInt(0, 1000), randomInt(0, 1000)) === 1;
 }
 
 test('estimating pi', () => {
