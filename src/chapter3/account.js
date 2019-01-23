@@ -1,4 +1,4 @@
-export default function makeAccount(balance, password) {
+export function makeAccount(balance, password) {
   function withdraw(amount) {
     if (balance < amount) {
       throw new Error('Insufficient funds');
@@ -25,5 +25,15 @@ export default function makeAccount(balance, password) {
       default:
         throw new Error(`Unknown account request - ${message}`);
     }
+  }
+}
+
+export function makeJoint(baseAccount, basePassword, newPassword) {
+  return function (message, passwordTry) {
+    if (passwordTry !== newPassword) {
+      throw new Error('Incorrect password');
+    }
+
+    return baseAccount(message, basePassword);
   }
 }
