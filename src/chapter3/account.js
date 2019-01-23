@@ -1,4 +1,4 @@
-export function makeAccount(balance) {
+export default function makeAccount(balance) {
   function withdraw(amount) {
     if (balance < amount) {
       throw new Error('Insufficient funds');

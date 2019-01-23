@@ -1,4 +1,4 @@
-import { makeAccount } from './account';
+import makeAccount from './account';
 
 test('accounts', () => {
   const acc1 = makeAccount(100);
