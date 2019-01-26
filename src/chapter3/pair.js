@@ -1,10 +1,12 @@
 const IS_CONS = Symbol('IsCons');
 
 export function cons(a, b) {
-  function dispatch(message) {
+  function dispatch(message, x) {
     switch (message) {
       case 'car': return a;
       case 'cdr': return b;
+      case 'setCar': a = x; break;
+      case 'setCdr': b = x; break;
     }
   }
 
@@ -18,4 +20,12 @@ export function car(p) {
 
 export function cdr(p) {
   return p('cdr');
+}
+
+export function setCar(p, a) {
+  p('setCar', a);
+}
+
+export function setCdr(p, b) {
+  p('setCdr', b);
 }
