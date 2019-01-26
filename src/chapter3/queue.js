@@ -1,4 +1,4 @@
-import { cons, car, cdr, setCar, setCdr } from './pair';
+import { cons, car, cdr, isAtom, setCar, setCdr } from './pair';
 import { isEmpty, EMPTY_LIST } from '../chapter2/list';
 
 export function makeQueue() {
@@ -36,6 +36,21 @@ export function deleteQueue(q) {
   }
   setFrontPointer(q, cdr(frontPointer(q)));
   return q;
+}
+
+export function toString(q) {
+  return toStringList(frontPointer(q));
+}
+
+function toStringList(l, acc = '(') {
+  if (isEmpty(l)) { return acc + ')'; }
+  if (isAtom(l)) { return l; }
+
+  const head = car(l);
+  const tail = cdr(l);
+  const trailing = isEmpty(tail) ? '' : ' ';
+
+  return toStringList(tail, acc + head + trailing);
 }
 
 function frontPointer(q) {

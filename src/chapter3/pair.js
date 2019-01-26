@@ -29,3 +29,11 @@ export function setCar(p, a) {
 export function setCdr(p, b) {
   p('setCdr', b);
 }
+
+export function isAtom(p) {
+  return !isPair(p);
+}
+
+export function isPair(p) {
+  return p && p[IS_CONS];
+}
