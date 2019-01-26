@@ -19,3 +19,10 @@ test('mutating', () => {
   expect(car(p)).toEqual(5);
   expect(cdr(p)).toEqual(3);
 });
+
+test('Exercise 3.20', () => {
+  const x = cons(1, 2);
+  const z = cons(x, x);
+  setCar(z, 17);
+  expect(car(z)).toEqual(17);
+});
