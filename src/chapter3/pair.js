@@ -7,6 +7,7 @@ export function cons(a, b) {
       case 'cdr': return b;
       case 'setCar': a = x; break;
       case 'setCdr': b = x; break;
+      default: throw new Error(`Unknown cons operation: ${message}`);
     }
   }
 
