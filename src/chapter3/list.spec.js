@@ -1,5 +1,5 @@
 import { car, cdr } from './pair';
-import { isEmpty, list } from './list';
+import { isEmpty, list, map } from './list';
 
 test('lists', () => {
   const l = list(2, 4, 6, 8);
@@ -15,4 +15,12 @@ test('lists', () => {
 test('empty lists', () => {
   const l = list();
   expect(isEmpty(l)).toEqual(true);
+});
+
+test('map', () => {
+  const a = list(3, 2, 1);
+  const b = map(a, x => x + 1);
+  expect(car(b)).toEqual(4);
+  expect(car(cdr(b))).toEqual(3);
+  expect(car(cdr(cdr(b)))).toEqual(2);
 });

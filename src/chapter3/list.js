@@ -7,3 +7,12 @@ export function list(...items) {
 export function isEmpty(l) {
   return l === null;
 }
+
+export function map(l, f) {
+  if (isEmpty(l)) { return l; }
+
+  return cons(
+    f(car(l)),
+    map(cdr(l), f),
+  );
+}
