@@ -8,6 +8,8 @@ test('wires', () => {
 
   const action = jest.fn();
   addAction(w, action);
+  setSignal(w, 1);
+  expect(action).not.toBeCalled();
   setSignal(w, 0);
   expect(action).toBeCalled();
 });

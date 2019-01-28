@@ -10,8 +10,10 @@ export function getSignal(w) {
 }
 
 export function setSignal(w, value) {
-  setCar(w, value);
-  map(getActions(w), f => f());
+  if (getSignal(w) !== value) {
+    setCar(w, value);
+    map(getActions(w), f => f());
+  }
 }
 
 export function addAction(w, proc) {
