@@ -1,4 +1,4 @@
-import { addAction, getSignal, makeWire, setSignal } from './circuit';
+import { addAction, getSignal, makeWire, setSignal } from './wire';
 
 test('wires', () => {
   const w = makeWire();
