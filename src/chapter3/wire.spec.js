@@ -4,6 +4,7 @@ import {
   getSignal,
   inverter,
   makeWire,
+  orGate,
   setSignal,
 } from './wire';
 
@@ -42,6 +43,21 @@ test('and gates', (done) => {
   const promise = andGate(x, y, z);
 
   setSignal(x, 1);
+  expect(getSignal(z)).toEqual(0);
+
+  promise.then(() => {
+    expect(getSignal(z)).toEqual(1);
+    done();
+  });
+});
+
+test('or gates', (done) => {
+  const x = makeWire(0);
+  const y = makeWire(0);
+  const z = makeWire(0);
+  const promise = orGate(x, y, z);
+
+  setSignal(y, 1);
   expect(getSignal(z)).toEqual(0);
 
   promise.then(() => {

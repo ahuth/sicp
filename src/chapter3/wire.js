@@ -51,6 +51,22 @@ export function andGate(a1, a2, output) {
   });
 }
 
+export function orGate(a1, a2, output) {
+  return new Promise((resolve) => {
+    function orAction() {
+      const newValue = logicalOr(getSignal(a1), getSignal(a2));
+
+      setTimeout(() => {
+        setSignal(output, newValue);
+        resolve();
+      }, 100);
+    }
+
+    addAction(a1, orAction);
+    addAction(a2, orAction);
+  });
+}
+
 function getActions(w) {
   return cdr(w);
 }
@@ -65,6 +81,14 @@ function logicalNot(s) {
 
 function logicalAnd(s1, s2) {
   if (s1 === 1 && s2 === 1) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+function logicalOr(s1, s2) {
+  if (s1 === 1 || s2 === 1) {
     return 1;
   } else {
     return 0;
