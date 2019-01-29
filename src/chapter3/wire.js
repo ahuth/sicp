@@ -35,6 +35,22 @@ export function inverter(input, output) {
   });
 }
 
+export function andGate(a1, a2, output) {
+  return new Promise((resolve) => {
+    function andAction() {
+      const newValue = logicalAnd(getSignal(a1), getSignal(a2));
+
+      setTimeout(() => {
+        setSignal(output, newValue);
+        resolve();
+      }, 100);
+    }
+
+    addAction(a1, andAction);
+    addAction(a2, andAction);
+  });
+}
+
 function getActions(w) {
   return cdr(w);
 }
@@ -44,5 +60,13 @@ function logicalNot(s) {
     case 0: return 1;
     case 1: return 0;
     default: throw new Error(`Invalid signal: ${s}`);
+  }
+}
+
+function logicalAnd(s1, s2) {
+  if (s1 === 1 && s2 === 1) {
+    return 1;
+  } else {
+    return 0;
   }
 }

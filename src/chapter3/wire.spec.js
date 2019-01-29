@@ -1,5 +1,6 @@
 import {
   addAction,
+  andGate,
   getSignal,
   inverter,
   makeWire,
@@ -30,6 +31,21 @@ test('inverters', (done) => {
 
   promise.then(() => {
     expect(getSignal(y)).toEqual(0);
+    done();
+  });
+});
+
+test('and gates', (done) => {
+  const x = makeWire(0);
+  const y = makeWire(1);
+  const z = makeWire(0);
+  const promise = andGate(x, y, z);
+
+  setSignal(x, 1);
+  expect(getSignal(z)).toEqual(0);
+
+  promise.then(() => {
+    expect(getSignal(z)).toEqual(1);
     done();
   });
 });
