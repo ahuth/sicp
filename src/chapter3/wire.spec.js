@@ -25,30 +25,34 @@ test('wires', () => {
   expect(action.mock.calls.length).toEqual(2);
 });
 
-test('inverters', () => {
+test('inverters', (done) => {
   const x = makeWire();
   const y = makeWire();
 
-  inverter(x, y);
-  expect(getSignal(y)).toEqual(1);
-
-  setSignal(x, 1);
-  expect(getSignal(y)).toEqual(0);
+  inverter(x, y).then(() => {
+    expect(getSignal(y)).toEqual(1);
+    return setSignal(x, 1);
+  }).then(() => {
+    expect(getSignal(y)).toEqual(0);
+    done();
+  });
 });
 
-test('and gates', () => {
+test('and gates', (done) => {
   const x = makeWire();
   const y = makeWire();
   const z = makeWire();
 
-  andGate(x, y, z);
-  expect(getSignal(z)).toEqual(0);
-
-  setSignal(x, 1);
-  expect(getSignal(z)).toEqual(0);
-
-  setSignal(y, 1);
-  expect(getSignal(z)).toEqual(1);
+  andGate(x, y, z).then(() => {
+    expect(getSignal(z)).toEqual(0);
+    return setSignal(x, 1);
+  }).then(() => {
+    expect(getSignal(z)).toEqual(0);
+    return setSignal(y, 1);
+  }).then(() => {
+    expect(getSignal(z)).toEqual(1);
+    done();
+  });
 });
 
 test('or gates', () => {
@@ -56,9 +60,11 @@ test('or gates', () => {
   const y = makeWire();
   const z = makeWire();
 
-  orGate(x, y, z);
-  expect(getSignal(z)).toEqual(0);
-
-  setSignal(y, 1);
-  expect(getSignal(z)).toEqual(1);
+  orGate(x, y, z).then(() => {
+    expect(getSignal(z)).toEqual(0);
+    return setSignal(y, 1);
+  }).then(() => {
+    expect(getSignal(z)).toEqual(1);
+    done();
+  });
 });
