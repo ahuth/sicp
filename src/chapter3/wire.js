@@ -39,50 +39,32 @@ export function addAction(w, proc) {
 }
 
 export function inverter(input, output) {
-  return new Promise((resolve) => {
-    function invertInput() {
-      const newValue = logicalNot(getSignal(input));
+  function invertInput() {
+    const newValue = logicalNot(getSignal(input));
+    setSignal(output, newValue);
+  }
 
-      setTimeout(() => {
-        setSignal(output, newValue);
-        resolve();
-      }, 100);
-    }
-
-    addAction(input, invertInput);
-  });
+  addAction(input, invertInput);
 }
 
 export function andGate(a1, a2, output) {
-  return new Promise((resolve) => {
-    function andAction() {
-      const newValue = logicalAnd(getSignal(a1), getSignal(a2));
+  function andAction() {
+    const newValue = logicalAnd(getSignal(a1), getSignal(a2));
+    setSignal(output, newValue);
+  }
 
-      setTimeout(() => {
-        setSignal(output, newValue);
-        resolve();
-      }, 100);
-    }
-
-    addAction(a1, andAction);
-    addAction(a2, andAction);
-  });
+  addAction(a1, andAction);
+  addAction(a2, andAction);
 }
 
 export function orGate(a1, a2, output) {
-  return new Promise((resolve) => {
-    function orAction() {
-      const newValue = logicalOr(getSignal(a1), getSignal(a2));
+  function orAction() {
+    const newValue = logicalOr(getSignal(a1), getSignal(a2));
+    setSignal(output, newValue);
+  }
 
-      setTimeout(() => {
-        setSignal(output, newValue);
-        resolve();
-      }, 100);
-    }
-
-    addAction(a1, orAction);
-    addAction(a2, orAction);
-  });
+  addAction(a1, orAction);
+  addAction(a2, orAction);
 }
 
 function logicalNot(s) {
