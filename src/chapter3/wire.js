@@ -87,10 +87,10 @@ export function orGate(a1, a2, output) {
 }
 
 function logicalNot(s) {
-  switch (s) {
-    case 0: return 1;
-    case 1: return 0;
-    default: throw new Error(`Invalid signal: ${s}`);
+  if (s === 0) {
+    return 1;
+  } else {
+    return 0;
   }
 }
 
