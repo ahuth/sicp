@@ -1,7 +1,8 @@
 import { cons, car, cdr, setCar, setCdr } from './pair';
 import { list, map } from './list';
 
-export function makeWire(signal = 0) {
+export function makeWire() {
+  let signal = 0;
   let actions = list();
 
   function setMySignal(value) {

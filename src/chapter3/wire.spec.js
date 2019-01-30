@@ -26,29 +26,38 @@ test('wires', () => {
 });
 
 test('inverters', () => {
-  const x = makeWire(0);
-  const y = makeWire(1);
+  const x = makeWire();
+  const y = makeWire();
+
   inverter(x, y);
+  expect(getSignal(y)).toEqual(1);
 
   setSignal(x, 1);
   expect(getSignal(y)).toEqual(0);
 });
 
 test('and gates', () => {
-  const x = makeWire(0);
-  const y = makeWire(1);
-  const z = makeWire(0);
+  const x = makeWire();
+  const y = makeWire();
+  const z = makeWire();
+
   const promise = andGate(x, y, z);
+  expect(getSignal(z)).toEqual(0);
 
   setSignal(x, 1);
+  expect(getSignal(z)).toEqual(0);
+
+  setSignal(y, 1);
   expect(getSignal(z)).toEqual(1);
 });
 
 test('or gates', () => {
-  const x = makeWire(0);
-  const y = makeWire(0);
-  const z = makeWire(0);
+  const x = makeWire();
+  const y = makeWire();
+  const z = makeWire();
+
   const promise = orGate(x, y, z);
+  expect(getSignal(z)).toEqual(0);
 
   setSignal(y, 1);
   expect(getSignal(z)).toEqual(1);
