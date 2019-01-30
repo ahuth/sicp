@@ -2,22 +2,39 @@ import { cons, car, cdr, setCar, setCdr } from './pair';
 import { list, map } from './list';
 
 export function makeWire(signal = 0) {
-  return cons(signal, list());
-}
+  let actions = list();
 
-export function getSignal(w) {
-  return car(w);
-}
+  function setMySignal(value) {
+    if (signal !== value) {
+      signal = value;
+      map(actions, f => f());
+    }
+  }
 
-export function setSignal(w, value) {
-  if (getSignal(w) !== value) {
-    setCar(w, value);
-    map(getActions(w), f => f());
+  function acceptAction(proc) {
+    actions = cons(proc, actions);
+  }
+
+  return function (message) {
+    switch (message) {
+      case 'getSignal': return signal;
+      case 'setSignal': return setMySignal;
+      case 'addAction': return acceptAction;
+      default: throw new Error(`Unknown wire operation: ${message}`);
+    }
   }
 }
 
+export function getSignal(w) {
+  return w('getSignal');
+}
+
+export function setSignal(w, value) {
+  return w('setSignal')(value);
+}
+
 export function addAction(w, proc) {
-  setCdr(w, cons(proc, cdr(w)));
+  return w('addAction')(proc);
 }
 
 export function inverter(input, output) {
@@ -65,10 +82,6 @@ export function orGate(a1, a2, output) {
     addAction(a1, orAction);
     addAction(a2, orAction);
   });
-}
-
-function getActions(w) {
-  return cdr(w);
 }
 
 function logicalNot(s) {
