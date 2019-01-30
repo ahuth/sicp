@@ -13,6 +13,7 @@ export function makeWire(signal = 0) {
 
   function acceptAction(proc) {
     actions = cons(proc, actions);
+    proc();
   }
 
   return function (message) {

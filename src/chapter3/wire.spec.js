@@ -16,10 +16,13 @@ test('wires', () => {
 
   const action = jest.fn();
   addAction(w, action);
+  expect(action.mock.calls.length).toEqual(1);
+
   setSignal(w, 1);
-  expect(action).not.toBeCalled();
+  expect(action.mock.calls.length).toEqual(1);
+
   setSignal(w, 0);
-  expect(action).toBeCalled();
+  expect(action.mock.calls.length).toEqual(2);
 });
 
 test('inverters', (done) => {
