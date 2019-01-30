@@ -41,7 +41,7 @@ test('and gates', () => {
   const y = makeWire();
   const z = makeWire();
 
-  const promise = andGate(x, y, z);
+  andGate(x, y, z);
   expect(getSignal(z)).toEqual(0);
 
   setSignal(x, 1);
@@ -56,7 +56,7 @@ test('or gates', () => {
   const y = makeWire();
   const z = makeWire();
 
-  const promise = orGate(x, y, z);
+  orGate(x, y, z);
   expect(getSignal(z)).toEqual(0);
 
   setSignal(y, 1);
