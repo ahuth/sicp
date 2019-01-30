@@ -59,13 +59,14 @@ export function andGate(a1, a2, output) {
 }
 
 export function orGate(a1, a2, output) {
-  function orAction() {
-    const newValue = logicalOr(getSignal(a1), getSignal(a2));
-    setSignal(output, newValue);
-  }
+  const a3 = makeWire();
+  const a4 = makeWire();
+  const a5 = makeWire();
 
-  addAction(a1, orAction);
-  addAction(a2, orAction);
+  inverter(a1, a3);
+  inverter(a2, a4);
+  andGate(a3, a4, a5);
+  inverter(a5, output);
 }
 
 function logicalNot(s) {
@@ -78,14 +79,6 @@ function logicalNot(s) {
 
 function logicalAnd(s1, s2) {
   if (s1 === 1 && s2 === 1) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-function logicalOr(s1, s2) {
-  if (s1 === 1 || s2 === 1) {
     return 1;
   } else {
     return 0;
