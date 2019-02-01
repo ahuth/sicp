@@ -25,7 +25,7 @@ test('wires', () => {
   expect(action.mock.calls.length).toEqual(2);
 });
 
-test('inverters', async (done) => {
+test('inverters', async () => {
   const x = makeWire();
   const y = makeWire();
 
@@ -34,11 +34,9 @@ test('inverters', async (done) => {
 
   await setSignal(x, 1);
   expect(getSignal(y)).toEqual(0);
-
-  done();
 });
 
-test('and gates', async (done) => {
+test('and gates', async () => {
   const x = makeWire();
   const y = makeWire();
   const z = makeWire();
@@ -51,11 +49,9 @@ test('and gates', async (done) => {
 
   await setSignal(y, 1);
   expect(getSignal(z)).toEqual(1);
-
-  done();
 });
 
-test('or gates', async (done) => {
+test('or gates', async () => {
   const x = makeWire();
   const y = makeWire();
   const z = makeWire();
@@ -65,6 +61,4 @@ test('or gates', async (done) => {
 
   await setSignal(y, 1);
   expect(getSignal(z)).toEqual(1);
-
-  done();
 });
