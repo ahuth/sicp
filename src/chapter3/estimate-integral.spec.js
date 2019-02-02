@@ -22,7 +22,7 @@ test('estimating an integral', () => {
   const result = estimateIntegral(p, 2, 8, 4, 10);
 
   // Really should be around 28.3.
-  expect(result).toBeGreaterThanOrEqual(20);
+  expect(result).toBeGreaterThanOrEqual(19);
   expect(result).toBeLessThanOrEqual(24);
 });
 
