@@ -1,5 +1,5 @@
 import { car, cdr } from './pair';
-import { isEmpty, list, map } from './list';
+import { every, isEmpty, list, map } from './list';
 
 test('lists', () => {
   const l = list(2, 4, 6, 8);
@@ -23,4 +23,10 @@ test('map', () => {
   expect(car(b)).toEqual(4);
   expect(car(cdr(b))).toEqual(3);
   expect(car(cdr(cdr(b)))).toEqual(2);
+});
+
+test('every', () => {
+  const l = list(2, 4, 6);
+  expect(every(l, x => x <= 6)).toEqual(true);
+  expect(every(l, x => x < 6)).toEqual(false);
 });

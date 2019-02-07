@@ -16,3 +16,9 @@ export function map(l, f) {
     map(cdr(l), f),
   );
 }
+
+export function every(l, f) {
+  if (isEmpty(l)) { return true; }
+  if (!f(car(l))) { return false; }
+  return every(cdr(l), f);
+}
