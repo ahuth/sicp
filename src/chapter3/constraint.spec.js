@@ -28,6 +28,26 @@ test('simple constraint', () => {
   expect(getValue(input)).toEqual(3);
 });
 
+test('another simple constraint', () => {
+  function doubleIncrement(x, result) {
+    const two = makeConnector();
+    constant(2, two);
+    adder(x, two, result);
+  }
+
+  const input = makeConnector();
+  const result = makeConnector();
+  doubleIncrement(input, result);
+
+  setValue(input, 1, 'user');
+  expect(getValue(input)).toEqual(1);
+  expect(getValue(result)).toEqual(3);
+
+  forgetValue(input, 'user');
+  setValue(result, 7, 'user');
+  expect(getValue(input)).toEqual(5);
+});
+
 test('Celsius to Fahrenheit', () => {
   function centigradeFahrenheitConverter(c, f) {
     const u = makeConnector();
