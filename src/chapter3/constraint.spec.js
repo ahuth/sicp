@@ -90,16 +90,16 @@ test('Celsius to Fahrenheit', () => {
     constant(32, y);
   };
 
-  // const C = makeConnector();
-  // const F = makeConnector();
-  // centigradeFahrenheitConverter(C, F);
+  const C = makeConnector();
+  const F = makeConnector();
+  centigradeFahrenheitConverter(C, F);
 
-  // setValue(C, 25);
-  // expect(getValue(F)).toBeCloseTo(77);
+  setValue(C, 25, 'user');
+  expect(getValue(F)).toEqual(77);
 
-  // expect(() => setValue(F, 212)).toThrowError('Contradicting values! 77, 212');
-  // forgetValue(C);
+  expect(() => setValue(F, 212)).toThrowError('Contradicting values! 77, 212');
+  forgetValue(C, 'user');
 
-  // setValue(F, 212);
-  // expect(getValue(C)).toBeCloseTo(100);
+  setValue(F, 212, 'user');
+  expect(getValue(C)).toEqual(100);
 });
