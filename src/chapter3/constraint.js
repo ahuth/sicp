@@ -63,9 +63,9 @@ export function adder(a1, a2, sum) {
   }
 
   function processForgetValue() {
-    forgetValue(a1);
-    forgetValue(a2);
-    forgetValue(sum);
+    forgetValue(a1, me);
+    forgetValue(a2, me);
+    forgetValue(sum, me);
     return processNewValue();
   }
 
@@ -105,9 +105,9 @@ export function multiplier(m1, m2, product) {
   }
 
   function processForgetValue() {
-    forgetValue(m2);
-    forgetValue(m2);
-    forgetValue(product);
+    forgetValue(m1, me);
+    forgetValue(m2, me);
+    forgetValue(product, me);
     return processNewValue();
   }
 
