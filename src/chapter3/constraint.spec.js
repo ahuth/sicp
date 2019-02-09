@@ -25,6 +25,7 @@ test('simple constraint', () => {
 
   forgetValue(input, 'user');
   setValue(result, 6, 'user');
+  expect(getValue(input)).toEqual(3);
 });
 
 test('Celsius to Fahrenheit', () => {
