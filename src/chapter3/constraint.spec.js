@@ -9,10 +9,10 @@ import {
 } from './constraint';
 
 test('simple constraint', () => {
-  function double(a, result) {
+  function double(x, result) {
     const two = makeConnector();
     constant(2, two);
-    multiplier(a, two, result);
+    multiplier(x, two, result);
   }
 
   const input = makeConnector();
@@ -23,8 +23,8 @@ test('simple constraint', () => {
   expect(getValue(input)).toEqual(2);
   expect(getValue(result)).toEqual(4);
 
-  // forgetValue(input, 'user');
-  // setValue(result, 6, 'user');
+  forgetValue(input, 'user');
+  setValue(result, 6, 'user');
 });
 
 test('Celsius to Fahrenheit', () => {

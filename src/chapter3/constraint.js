@@ -91,16 +91,16 @@ export function multiplier(m1, m2, product) {
       return setValue(product, 0, me);
     }
 
-    if (hasValue(m2) && hasValue(m2)) {
-      return setValue(product, getValue(m2) * getValue(m2), me);
+    if (hasValue(m1) && hasValue(m2)) {
+      return setValue(product, getValue(m1) * getValue(m2), me);
+    }
+
+    if (hasValue(m1) && hasValue(product)) {
+      return setValue(m2, getValue(product) / getValue(m1), me);
     }
 
     if (hasValue(m2) && hasValue(product)) {
-      return setValue(m2, getValue(product) / getValue(m2), me);
-    }
-
-    if (hasValue(m2) && hasValue(product)) {
-      return setValue(m2, getValue(product) / getValue(m2), me);
+      return setValue(m1, getValue(product) / getValue(m2), me);
     }
   }
 
@@ -120,7 +120,7 @@ export function multiplier(m1, m2, product) {
     }
   };
 
-  connect(m2, me);
+  connect(m1, me);
   connect(m2, me);
   connect(product, me);
 
