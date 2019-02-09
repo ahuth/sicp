@@ -8,7 +8,7 @@ import {
   forgetValue,
 } from './constraint';
 
-test('simple constraint', () => {
+test('doubler', () => {
   function double(x, result) {
     const two = makeConnector();
     constant(2, two);
@@ -28,7 +28,7 @@ test('simple constraint', () => {
   expect(getValue(input)).toEqual(3);
 });
 
-test('another simple constraint', () => {
+test('double incrementer', () => {
   function doubleIncrement(x, result) {
     const two = makeConnector();
     constant(2, two);
@@ -46,6 +46,32 @@ test('another simple constraint', () => {
   forgetValue(input, 'user');
   setValue(result, 7, 'user');
   expect(getValue(input)).toEqual(5);
+});
+
+test('double and increment', () => {
+  function doubleAndIncrement(x, result) {
+    const one = makeConnector();
+    constant(1, one);
+
+    const two = makeConnector();
+    constant(2, two);
+
+    const temp = makeConnector();
+    multiplier(x, two, temp);
+    adder(temp, one, result)
+  }
+
+  const input = makeConnector();
+  const result = makeConnector();
+  doubleAndIncrement(input, result);
+
+  setValue(input, 4, 'user');
+  expect(getValue(input)).toEqual(4);
+  expect(getValue(result)).toEqual(9);
+
+  forgetValue(input, 'user');
+  setValue(result, 15, 'user');
+  expect(getValue(input)).toEqual(7);
 });
 
 test('Celsius to Fahrenheit', () => {
