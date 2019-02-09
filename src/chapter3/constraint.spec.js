@@ -1,23 +1,21 @@
 import {
   makeConnector,
-  adder,
-  multiplier,
-  constant,
+  makeAdder,
+  makeMultiplier,
+  makeDivider,
+  makeConstant,
   getValue,
   setValue,
   forgetValue,
 } from './constraint';
 
 test('doubler', () => {
-  function double(x, result) {
-    const two = makeConnector();
-    constant(2, two);
-    multiplier(x, two, result);
+  function double(x) {
+    return makeMultiplier(x, makeConstant(2));
   }
 
   const input = makeConnector();
-  const result = makeConnector();
-  double(input, result);
+  const result = double(input);
 
   setValue(input, 2, 'user');
   expect(getValue(input)).toEqual(2);
@@ -29,15 +27,12 @@ test('doubler', () => {
 });
 
 test('double incrementer', () => {
-  function doubleIncrement(x, result) {
-    const two = makeConnector();
-    constant(2, two);
-    adder(x, two, result);
+  function doubleIncrement(x) {
+    return makeAdder(x, makeConstant(2));
   }
 
   const input = makeConnector();
-  const result = makeConnector();
-  doubleIncrement(input, result);
+  const result = doubleIncrement(input);
 
   setValue(input, 1, 'user');
   expect(getValue(input)).toEqual(1);
@@ -61,9 +56,15 @@ test('double and increment', () => {
     adder(temp, one, result)
   }
 
+  function doubleAndIncrement(x) {
+    return makeAdder(
+      makeConstant(1),
+      makeMultiplier(makeConstant(2), x),
+    );
+  }
+
   const input = makeConnector();
-  const result = makeConnector();
-  doubleAndIncrement(input, result);
+  const result = doubleAndIncrement(input);
 
   setValue(input, 4, 'user');
   expect(getValue(input)).toEqual(4);
@@ -75,24 +76,18 @@ test('double and increment', () => {
 });
 
 test('Celsius to Fahrenheit', () => {
-  function centigradeFahrenheitConverter(c, f) {
-    const u = makeConnector();
-    const v = makeConnector();
-    const w = makeConnector();
-    const x = makeConnector();
-    const y = makeConnector();
-
-    multiplier(c, w, u);
-    multiplier(v, x, u);
-    adder(v, y, f);
-    constant(9, w);
-    constant(5, x);
-    constant(32, y);
-  };
+  function makeConverter(c) {
+    return makeAdder(
+      makeMultiplier(
+        c,
+        makeDivider(makeConstant(9), makeConstant(5)),
+      ),
+      makeConstant(32),
+    );
+  }
 
   const C = makeConnector();
-  const F = makeConnector();
-  centigradeFahrenheitConverter(C, F);
+  const F = makeConverter(C);
 
   setValue(C, 25, 'user');
   expect(getValue(F)).toEqual(77);
@@ -105,22 +100,18 @@ test('Celsius to Fahrenheit', () => {
 });
 
 test('averager', () => {
-  function average(a, b, c) {
-    const sum = makeConnector();
-    adder(a, b, sum);
-
-    const two = makeConnector();
-    constant(2, two);
-
-    multiplier(c, two, sum);
+  function average(a, b) {
+    return makeDivider(
+      makeAdder(a, b),
+      makeConstant(2),
+    );
   }
 
   const a = makeConnector();
   const b = makeConnector();
-  const c = makeConnector();
+  const result = average(a, b);
 
-  average(a, b, c);
   setValue(a, 4, 'user');
   setValue(b, 8, 'user');
-  expect(getValue(c)).toEqual(6);
+  expect(getValue(result)).toEqual(6);
 });

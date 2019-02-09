@@ -47,7 +47,7 @@ export function makeConnector() {
   return me;
 }
 
-export function adder(a1, a2, sum) {
+function adder(a1, a2, sum) {
   function processNewValue() {
     if (hasValue(a1) && hasValue(a2)) {
       return setValue(sum, getValue(a1) + getValue(a2), me);
@@ -85,7 +85,7 @@ export function adder(a1, a2, sum) {
   return me;
 }
 
-export function multiplier(m1, m2, product) {
+function multiplier(m1, m2, product) {
   function processNewValue() {
     if ((hasValue(m1) && getValue(m1) === 0) || (hasValue(m2) && getValue(m2) === 0)) {
       return setValue(product, 0, me);
@@ -127,7 +127,7 @@ export function multiplier(m1, m2, product) {
   return me;
 }
 
-export function constant(value, connector) {
+function constant(value, connector) {
   function me(message) {
     throw new Error(`Unknown operation: ${message}`);
   }
@@ -136,6 +136,30 @@ export function constant(value, connector) {
   setValue(connector, value, me);
 
   return me;
+}
+
+export function makeAdder(a1, a2) {
+  const result = makeConnector();
+  adder(a1, a2, result);
+  return result;
+}
+
+export function makeMultiplier(m1, m2) {
+  const result = makeConnector();
+  multiplier(m1, m2, result);
+  return result;
+}
+
+export function makeDivider(d1, d2) {
+  const result = makeConnector();
+  multiplier(result, d2, d1);
+  return result;
+}
+
+export function makeConstant(x) {
+  const result = makeConnector();
+  constant(x, result);
+  return result;
 }
 
 export function setValue(connector, value, informant) {
