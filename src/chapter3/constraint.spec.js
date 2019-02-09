@@ -103,3 +103,24 @@ test('Celsius to Fahrenheit', () => {
   setValue(F, 212, 'user');
   expect(getValue(C)).toEqual(100);
 });
+
+test('averager', () => {
+  function average(a, b, c) {
+    const sum = makeConnector();
+    adder(a, b, sum);
+
+    const two = makeConnector();
+    constant(2, two);
+
+    multiplier(c, two, sum);
+  }
+
+  const a = makeConnector();
+  const b = makeConnector();
+  const c = makeConnector();
+
+  average(a, b, c);
+  setValue(a, 4, 'user');
+  setValue(b, 8, 'user');
+  expect(getValue(c)).toEqual(6);
+});
