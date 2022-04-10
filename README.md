@@ -15,9 +15,3 @@ Run the tests with:
 ```
 npm test
 ```
-
-## Notes
-
-- [Chapter 1](./src/chapter1/README.md)
-- [Chapter 2](./src/chapter2/README.md)
-- [Chapter 3](./src/chapter3/README.md)
